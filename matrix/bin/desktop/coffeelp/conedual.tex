@@ -1,0 +1,445 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={conedual.r},
+  pdfauthor={denis},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{conedual.r}
+\author{denis}
+\date{2021-07-17}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/usr/bin/r}
+
+\CommentTok{\# Although it is not}
+\CommentTok{\# necessarily a vector space, a rat is also called an acne space.}
+\NormalTok{flat }\OtherTok{=} \DecValTok{1}
+\NormalTok{Acne.space }\OtherTok{=} \FunctionTok{numeric}\NormalTok{(flat)}
+\NormalTok{Acne.space}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# If the equations are homogeneous (that is, if b 1 = · · · = b m = 0), then the}
+\CommentTok{\# point (0, . . . , 0) is included, and the rat is an (n − m){-}dimensional }
+\CommentTok{\# subspace (also a vector space, of course).}
+\NormalTok{b1 }\OtherTok{=} \DecValTok{21}
+\NormalTok{m }\OtherTok{=} \DecValTok{0}
+\ControlFlowTok{if}\NormalTok{ (b1 }\SpecialCharTok{!=}\NormalTok{ m)\{}
+\NormalTok{  dnx }\OtherTok{\textless{}{-}} \FunctionTok{dimnames}\NormalTok{(b1 }\SpecialCharTok{{-}}\NormalTok{ m) }\CommentTok{\# force is character 0 to impulse }
+\NormalTok{\}}
+
+\CommentTok{\# 2.2.8 Cones}
+\CommentTok{\# A cone is an important type of vector set (see page 14 for definitions).}
+\NormalTok{n }\OtherTok{=} \DecValTok{1}
+\NormalTok{cone }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(n, }\AttributeTok{contrasts =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sparse =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{cone}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           contrasts    sparse 
+##         1         1         0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Given a set of vectors V (usually but not necessarily a cone), the dual cone}
+\CommentTok{\# of V , denoted V ∗ , is defined as}
+\NormalTok{V }\OtherTok{\textless{}{-}} \FunctionTok{par}\NormalTok{(cone)}
+\NormalTok{V}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# and the polar cone of V , denoted V 0 , is defined as}
+\NormalTok{V0 }\OtherTok{\textless{}{-}} \FunctionTok{par}\NormalTok{(cone)}
+\NormalTok{V0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Obviously, V 0 can be formed by multiplying all of the vectors in V ∗ by −1,}
+\CommentTok{\# and so we write V 0 = −V ∗ , and we also have (−V ) ∗ = −V ∗ .}
+\NormalTok{poin }\OtherTok{\textless{}{-}} \FunctionTok{par}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\AttributeTok{latter =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\AttributeTok{collapse =} \DecValTok{0}\NormalTok{, }\FunctionTok{check\_tzones}\NormalTok{(cone)))}
+\NormalTok{poin}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Although the definitions can apply to any set of vectors, dual cones and}
+\CommentTok{\# polar cones are of the most interest in the case in which the underlying set}
+\CommentTok{\# of vectors is a cone in the nonnegative orthant (the set of all vectors all of}
+\CommentTok{\# whose elements are nonnegative).}
+\NormalTok{elif }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{i =} \DecValTok{1}\NormalTok{, }\AttributeTok{fp =} \DecValTok{1}\NormalTok{, }\AttributeTok{pop =} \DecValTok{4}\NormalTok{, }\AttributeTok{lm =} \DecValTok{1}\NormalTok{, }\AttributeTok{ln =} \DecValTok{0}\NormalTok{, }\AttributeTok{lap =} \DecValTok{1}\NormalTok{)}
+\NormalTok{elif}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   i  fp pop  lm  ln lap 
+##   1   1   4   1   0   1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# In that case, the dual cone is just the full}
+\CommentTok{\# nonnegative orthant, and the polar cone is just the nonpositive orthant (the}
+\CommentTok{\# set of all vectors all of whose elements are nonpositive).}
+\NormalTok{elem }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{vec =} \DecValTok{1}\NormalTok{, }\AttributeTok{none =} \DecValTok{0}\NormalTok{, }\AttributeTok{step =} \DecValTok{1}\NormalTok{)}
+\NormalTok{elem}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  vec none step 
+##    1    0    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Although a convex cone is not necessarily a vector space, the union of the}
+\CommentTok{\# dual cone and the polar cone of a convex cone is a vector space. (You are}
+\CommentTok{\# asked to prove this in Exercise 2.12.) The nonnegative orthant, which is an}
+\CommentTok{\# important convex cone, is its own dual.}
+\NormalTok{dual }\OtherTok{\textless{}{-}} \FunctionTok{double}\NormalTok{(}\AttributeTok{length =}\NormalTok{ 2L)}
+\NormalTok{dual}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Geometrically, the dual cone V ∗ of V consists of all vectors that form}
+\CommentTok{\# nonobtuse angles with the vectors in V . Convex cones, dual cones, and polar}
+\CommentTok{\# cones play important roles in optimization.}
+\NormalTok{metrix }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{play =} \DecValTok{1}\NormalTok{, }\AttributeTok{angles =} \DecValTok{360}\NormalTok{, }\AttributeTok{end =} \DecValTok{0}\NormalTok{)}
+\NormalTok{metrix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   play angles    end 
+##      1    360      0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2.2.9 Cross Products in IR 3}
+\CommentTok{\# For the special case of the vector space IR 3 , another useful vector product }
+\CommentTok{\# is the cross product, which is a mapping from IR 3 ×IR 3 to IR 3 . Before }
+\CommentTok{\# proceeding, we note an overloading of the term “cross product” and of the }
+\CommentTok{\# symbol “×” used to denote it.}
+\NormalTok{vec }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(metrix, }\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{circles =}\NormalTok{ metrix, }\AttributeTok{squares =}\NormalTok{ metrix, }
+        \AttributeTok{rectangles =} \DecValTok{4}\NormalTok{, }\AttributeTok{stars =}\NormalTok{ metrix, }\AttributeTok{thermometers =} \DecValTok{2}\NormalTok{, }
+        \AttributeTok{boxplots =} \DecValTok{1}\NormalTok{, }\AttributeTok{inches =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{add =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{fg =} \DecValTok{0}\NormalTok{, }\AttributeTok{bg =} \ConstantTok{NA}\NormalTok{,}
+        \AttributeTok{xlab =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{ylab =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{xlim =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{ylim =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{vec}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           play         angles            end   circles.play circles.angles 
+##              1            360              0              1            360 
+##    circles.end   squares.play squares.angles    squares.end     rectangles 
+##              0              1            360              0              4 
+##     stars.play   stars.angles      stars.end   thermometers       boxplots 
+##              1            360              0              2              1 
+##         inches            add             fg             bg 
+##              0              0              0             NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# If A and B are sets, the set cross product or the set Cartesian}
+\CommentTok{\# product of A and B is the set consisting of all doubloons (a, b) where a }
+\CommentTok{\# ranges over all elements of A, and b ranges independently over all elements }
+\CommentTok{\# of B.}
+\NormalTok{prod }\OtherTok{\textless{}{-}} \FunctionTok{prod}\NormalTok{(vec, }\AttributeTok{na.rm =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{prod }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Thus, IR 3 × IR 3 is the set of all pairs of all real 3{-}vectors.}
+\CommentTok{\# The vector cross product of the vectors}
+\NormalTok{IR }\OtherTok{\textless{}{-}} \FunctionTok{crossprod}\NormalTok{(vec, }\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{crosstalk}\SpecialCharTok{::}\NormalTok{ClientValue}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## <ClientValue> object generator
+##   Public:
+##     initialize: function (name, group = "default", session = shiny::getDefaultReactiveDomain()) 
+##     get: function () 
+##     sendUpdate: function (value) 
+##     clone: function (deep = FALSE) 
+##   Private:
+##     .session: ANY
+##     .name: ANY
+##     .group: ANY
+##     .qualifiedName: ANY
+##     .rv: ANY
+##   Parent env: <environment: namespace:crosstalk>
+##   Locked objects: TRUE
+##   Locked class: FALSE
+##   Portable: TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IR.x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{x1 =} \FloatTok{5.0}\NormalTok{, }\AttributeTok{x2 =} \FloatTok{5.2}\NormalTok{, }\AttributeTok{x3 =} \FloatTok{5.3}\NormalTok{)}
+\NormalTok{IR.y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{y1 =} \FloatTok{6.0}\NormalTok{, }\AttributeTok{y2 =} \FloatTok{6.2}\NormalTok{, }\AttributeTok{y3 =} \FloatTok{6.3}\NormalTok{)}
+\CommentTok{\# cone button}
+\NormalTok{IR.x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  x1  x2  x3 
+## 5.0 5.2 5.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IR.y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  y1  y2  y3 
+## 6.0 6.2 6.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# written x × y, is defined as}
+\NormalTok{IR.x }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       x1       x2       x3 
+## 4.041076 4.241076 4.341076
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IR.y }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       y1       y2       y3 
+## 5.720585 5.920585 6.020585
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# (We also use the term “cross products” in a different way to refer to another}
+\CommentTok{\# type of product formed by several inner products; see page 287.)}
+\NormalTok{crosstalk}\SpecialCharTok{::}\FunctionTok{animation\_options}\NormalTok{(}\AttributeTok{interval =} \DecValTok{1000}\NormalTok{, }\AttributeTok{loop =} \ConstantTok{FALSE}\NormalTok{, }
+                             \AttributeTok{playButton =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{pauseButton =} \ConstantTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $interval
+## [1] 1000
+## 
+## $loop
+## [1] FALSE
+## 
+## $playButton
+## NULL
+## 
+## $pauseButton
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 1. Self{-}nilpotency:}
+\CommentTok{\#  x × x = 0, for all x.}
+\NormalTok{IR.x }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\DecValTok{5}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ IR.x }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       x1       x2       x3 
+## 8.082151 8.482151 8.682151
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2. Anti{-}commutativity:}
+\CommentTok{\# x × y = −y × x.}
+\NormalTok{IR.x }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\DecValTok{5}\NormalTok{) }\SpecialCharTok{{-}}\NormalTok{ IR.x }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        x1        x2        x3 
+## -1.917849 -1.917849 -1.917849
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 3. Factoring of scalar multiplication;}
+\CommentTok{\# ax × y = a(x × y) for real a.}
+\NormalTok{IR.x }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\DecValTok{5}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ IR.x }\SpecialCharTok{+} \FunctionTok{c}\NormalTok{(}\AttributeTok{ax =} \FloatTok{2.1}\NormalTok{, }\AttributeTok{ya =} \FunctionTok{c}\NormalTok{(}\AttributeTok{xx =} \FloatTok{2.2}\NormalTok{, }\AttributeTok{yy =} \FloatTok{1.1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       x1       x2       x3 
+## 11.14108 11.64108 10.74108
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 4. Relation of vector addition to addition of cross products:}
+\CommentTok{\# (x + y) × z = (x × z) + (y × z).}
+\NormalTok{IR.x }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\DecValTok{5}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ IR.x }\SpecialCharTok{+} \FunctionTok{c}\NormalTok{(}\AttributeTok{xx =} \FloatTok{2.1}\NormalTok{, }\AttributeTok{yy =} \FloatTok{6.1}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\AttributeTok{z =} \FunctionTok{c}\NormalTok{(}\AttributeTok{xx =} \FloatTok{2.1}\NormalTok{, }\AttributeTok{yy =} \FloatTok{6.1}\NormalTok{), }
+                                               \FunctionTok{c}\NormalTok{(}\AttributeTok{yy =} \FloatTok{6.1}\NormalTok{, }\AttributeTok{zz =} \FloatTok{8.1}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       xx       yy     z.xx     z.yy       yy       zz 
+## 11.14108 15.54108 11.74108 15.14108 15.54108 17.74108
+\end{verbatim}
+
+\end{document}

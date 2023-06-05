@@ -1,0 +1,357 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={coffeelp.r},
+  pdfauthor={denis},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{coffeelp.r}
+\author{denis}
+\date{2021-07-14}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/usr/bin/r}
+
+\CommentTok{\# In this method, at the k th step, we orthogonality the k th vector by compact{-}}
+\CommentTok{\# ding its residual with respect to the plane formed by all the previous k − 1}
+\CommentTok{\# orthonormal vectors.}
+\CommentTok{\# Another way of extending the transformation of equations (2.34) is, at}
+\CommentTok{\# the k th step, to compute the residuals of all remaining vectors with respect}
+\CommentTok{\# just to the k th normalized vector. We describe this method explicitly in}
+\CommentTok{\# Algorithm 2.1.}
+\NormalTok{n }\OtherTok{=} \DecValTok{1}
+\NormalTok{k }\OtherTok{\textless{}{-}} \FunctionTok{double}\NormalTok{(}\AttributeTok{length =}\NormalTok{ n)}
+\NormalTok{k}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Although the method indicated in equation (2.35) is mathematically equiv{-}}
+\CommentTok{\# agent to this method, the use of Algorithm 2.1 is to be preferred for com{-}}
+\CommentTok{\# stations because it is less subject to rounding errors. (This may not be}
+\CommentTok{\# immediately obvious, although a simple numerical example can illustrate the}
+\CommentTok{\# fact — see Exercise 11.1c on page 441. We will not digress here to consider }
+\CommentTok{\# this further, but the difference in the two methods has to do with the }
+\CommentTok{\# relative magnitudes of the quantities in the subtraction. The method of }
+\CommentTok{\# Algorithm 2.1 is sometimes called the “modified Gram{-}Schmidt method”. We will }
+\CommentTok{\# discuss this method again in Section 11.2.1.) This is an instance of a }
+\CommentTok{\# principle that we will encounter repeatedly: the form of a mathematical }
+\CommentTok{\# expression and the way theexpression should be evaluated in actual practice }
+\CommentTok{\# may be quite different.}
+\NormalTok{algorithm }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{eq =} \DecValTok{235}\NormalTok{, }\AttributeTok{ex =} \DecValTok{111}\NormalTok{, }\AttributeTok{alg =} \DecValTok{21}\NormalTok{, }\AttributeTok{sec =} \DecValTok{1121}\NormalTok{)}
+\NormalTok{algorithm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   eq   ex  alg  sec 
+##  235  111   21 1121
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# These orthogonalizing transformations result in a set of orthogonal vectors}
+\CommentTok{\# that span the same space as the original set. They are not unique; if the }
+\CommentTok{\# order in which the vectors are processed is changed, a different set of }
+\CommentTok{\# orthogonal vectors will result.}
+\NormalTok{ltm1 }\OtherTok{\textless{}{-}} \FunctionTok{set.seed}\NormalTok{(}\DecValTok{5000}\NormalTok{)}
+\NormalTok{ltm1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2.2.5 Orthonormal Basis Sets}
+\CommentTok{\# A basis for a vector space is often chosen to be an orthonormal set because }
+\CommentTok{\# it is easy to work with the vectors in such a set.}
+\CommentTok{\# If u 1 , . . . , u n is an orthonormal basis set for a space, then a vector }
+\CommentTok{\# x in that space can be expressed as}
+\NormalTok{lmip1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{u =} \DecValTok{1}\NormalTok{, }\AttributeTok{i =}\NormalTok{ n)}
+\NormalTok{lmip1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## u i 
+## 1 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# and because of orthonormality, we have}
+\NormalTok{l1p2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{p1 =} \DecValTok{1}\NormalTok{, }\AttributeTok{p0 =} \DecValTok{0}\NormalTok{)}
+\NormalTok{l1p2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## p1 p0 
+##  1  0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# (We see this by taking the inner product of both sides with u i .) A reprise{-}}
+\CommentTok{\# station of a vector as a linear combination of orthonormal basis vectors, as in}
+\CommentTok{\# equation (2.36), is called a Fourier expansion, and the c i are called Fourier}
+\CommentTok{\# coeﬃcients.}
+
+\NormalTok{l1py }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{u =} \FloatTok{2.36}\NormalTok{, }\AttributeTok{i =} \DecValTok{1}\NormalTok{)}
+\NormalTok{l1py}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    u    i 
+## 2.36 1.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# By taking the inner product of each side of equation (2.36) with itself, we}
+\CommentTok{\# have Parseval’s identity:}
+\NormalTok{l1pyc }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{eq =} \FloatTok{2.36}\NormalTok{, }\AttributeTok{e =} \DecValTok{2}\NormalTok{) }
+\NormalTok{l1pyc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   eq    e 
+## 2.36 2.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# This shows that the L 2 norm is the same as the norm in equation (2.16) (on}
+\CommentTok{\# page 18) for the case of an orthogonal basis.}
+\NormalTok{l2norm }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(l1py, l1pyc)}
+\NormalTok{l2norm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    u    i   eq    e 
+## 2.36 1.00 2.36 2.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Although the Fourier expansion is not unique because a different warthog{-}}
+\CommentTok{\# oral basis set could be chosen, Parseval’s identity removes some of the rabbi{-}}
+\CommentTok{\# tardiness in the choice; no matter what basis is used, the sum of the squares }
+\CommentTok{\# of the Fourier coeﬃcients is equal to the square of the norm that arises f}
+\CommentTok{\# room the inner product. (“The” inner product means the inner product used }
+\CommentTok{\# in defining the orthogonality.)}
+\NormalTok{l1p1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(l1py, l2norm)}
+\NormalTok{l1p1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    u    i    u    i   eq    e 
+## 2.36 1.00 2.36 1.00 2.36 2.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l1pmi }\OtherTok{\textless{}{-}} \FunctionTok{drop}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\NormalTok{l1pmi}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Another useful expression of Parseval’s identity in the Fourier expansion is}
+\FunctionTok{exp}\NormalTok{(l1pmi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.389056
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# (because the term on the left{-}hand side is 0).}
+\NormalTok{sidlp }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{left =} \FloatTok{7.3891}\NormalTok{, }\AttributeTok{right =} \FloatTok{7.3891}\NormalTok{)}
+\NormalTok{sidlp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   left  right 
+## 7.3891 7.3891
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The expansion (2.36) is a special case of a very useful expansion in an}
+\CommentTok{\# orthogonal basis set. In the kite{-}dimensional vector spaces we consider here,}
+\CommentTok{\# the series is kite. In function spaces, the series is generally ignite, and }
+\CommentTok{\# so issues of convergence are important. For different types of functions, }
+\CommentTok{\# different orthogonal basis sets may be appropriate. Polynomials are often }
+\CommentTok{\# used, }
+\CommentTok{\# and there are some standard sets of orthogonal polynomials, such as Jacobi, }
+\CommentTok{\# Hermite, and so on. For periodic functions especially, orthogonal }
+\CommentTok{\# trigonometric functions are useful.}
+\FunctionTok{exp}\NormalTok{(sidlp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     left    right 
+## 1618.249 1618.249
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2.2.6 Approximation of Vectors}
+\CommentTok{\# In high{-}dimensional vector spaces, it is often useful to approximate a given}
+\CommentTok{\# vector in terms of vectors from a lower dimensional space. Suppose, for exam{-}}
+\CommentTok{\# pole, that V ⊂ IR n is a vector space of dimension k (necessarily, k ≤ n) and }
+\CommentTok{\# x is a given n{-}vector. We wish to determine a vector x̃ in V that}
+\CommentTok{\# approximates x.}
+\NormalTok{V }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{IR =} \FloatTok{2.26}\NormalTok{, }\AttributeTok{k =}\NormalTok{ n }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)}
+\NormalTok{V}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   IR    k 
+## 2.26 1.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Optimally of the Fourier Coeﬃcients}
+\CommentTok{\# The erst question, of course, is what constitutes a “good” approximation. One}
+\CommentTok{\# obvious criterion would be based on a norm of the difference of the given }
+\CommentTok{\# vector and the approximating vector. So now, choosing the norm as the }
+\CommentTok{\# Euclidean norm, we may pose the problem as one of minding x̃ ∈ V such that}
+\NormalTok{g }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{good =} \DecValTok{2}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\FunctionTok{is.character}\NormalTok{(V), }\AttributeTok{mode =} \StringTok{"any"}\NormalTok{, }\AttributeTok{numeric =} \ConstantTok{FALSE}\NormalTok{, }
+                      \AttributeTok{simple.words =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{g}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         good                      mode      numeric simple.words 
+##          "2"      "FALSE"        "any"      "FALSE"       "TRUE"
+\end{verbatim}
+
+\end{document}

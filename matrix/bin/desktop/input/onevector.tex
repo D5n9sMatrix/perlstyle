@@ -1,0 +1,359 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={onevector.r},
+  pdfauthor={denis},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{onevector.r}
+\author{denis}
+\date{2021-07-13}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/usr/bin/r}
+
+\CommentTok{\# 22}
+\CommentTok{\# 2 Vectors and Vector Spaces}
+\CommentTok{\# is a normalized vector. Normalized vectors are sometimes referred to as “unit}
+\CommentTok{\# vectors”, although we will generally reserve this term for a special kind of }
+\CommentTok{\# normalized vector (see page 12). A normalized vector is also sometimes }
+\CommentTok{\# referred o as a “normal vector”. I use “normalized vector” for a vector such }
+\CommentTok{\# as x̃ in equation (2.21) and use the latter phrase to denote a vector that is}
+\CommentTok{\# orthogonal to a subspace.}
+\NormalTok{norms }\OtherTok{\textless{}{-}} \FunctionTok{vector}\NormalTok{(}\AttributeTok{mode =} \StringTok{"logical"}\NormalTok{, }\AttributeTok{length =}\NormalTok{ 0L)}
+\NormalTok{norms}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## logical(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2.1.7 Metrics and Distances}
+\CommentTok{\# It is often useful to consider how far apart two vectors are; that is, the }
+\CommentTok{\# “distance” between them. A reasonable distance measure would have to satisfy}
+\CommentTok{\# certain requirements, such as being a nonnegative real number. A function ∆}
+\CommentTok{\# that maps any two objects in a set S to IR is called a metric on S if, for all}
+\CommentTok{\# x, y, and z in S, it satisﬁes the following three conditions:}
+\NormalTok{Matrix}\SpecialCharTok{::}\FunctionTok{as.matrix}\NormalTok{(norms)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# These conditions correspond in an intuitive manner to the properties we ex{-}}
+\CommentTok{\# pect of a distance between objects.}
+\FunctionTok{object.size}\NormalTok{(norms)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 48 bytes
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Metrics Induced by Norms}
+\CommentTok{\# If subtraction and a norm are deﬁned for the elements of S, the most common}
+\CommentTok{\# way of forming a metric is by using the norm. If · is a norm, we can verify}
+\CommentTok{\# that}
+\NormalTok{Matrix}\SpecialCharTok{::}\FunctionTok{as.array}\NormalTok{(norms)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## logical(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# is a metric by using the properties of a norm to establish the three }
+\CommentTok{\# properties of a metric above (Exercise 2.7).}
+\FunctionTok{c}\NormalTok{(norms, }\AttributeTok{sigSlots =} \FunctionTok{c}\NormalTok{(}\StringTok{"target"}\NormalTok{, }\StringTok{"defined"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## sigSlots1 sigSlots2 
+##  "target" "defined"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The general inner products, norms, and metrics deﬁned above are relevant}
+\CommentTok{\# in a wide range of applications. The sets on which they are deﬁned can consist}
+\CommentTok{\# of various types of objects. In the context of real vectors, the most common}
+\CommentTok{\# inner product is the dot product; the most common norm is the Euclidean}
+\CommentTok{\# norm that arises from the dot product; and the most common metric is the}
+\CommentTok{\# one deﬁned by the Euclidean norm, called the Euclidean distance.}
+\FunctionTok{c}\NormalTok{(norms)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## logical(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2.1.8 Orthogonal Vectors and Orthogonal Vector Spaces}
+\CommentTok{\# Two vectors v 1 and v 2 such that}
+\CommentTok{\# v 1 , v 2 = 0}
+\CommentTok{\# (2.23)}
+\CommentTok{\# are said to be orthogonal, and this condition is denoted by v 1 ⊥ v 2 . }
+\CommentTok{\# (Some{-}}
+\CommentTok{\# times we exclude the zero vector from this deﬁnition, but it is not important}
+\NormalTok{orthogonal }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{v =} \DecValTok{1}\NormalTok{, }\AttributeTok{v =} \DecValTok{2}\NormalTok{, }\AttributeTok{v =} \DecValTok{3}\NormalTok{)}
+\NormalTok{orthogonal}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## v v v 
+## 1 2 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2.1 Operations on Vectors}
+\CommentTok{\# 23}
+\CommentTok{\# to do so.) Normalized vectors that are all orthogonal to each other are called}
+\CommentTok{\# orthonormal vectors. (If the elements of the vectors are from the ﬁeld of com{-}}
+\CommentTok{\# plex numbers, orthogonality and normality are deﬁned in terms of the dot}
+\CommentTok{\# products of a vector with a sorted conjugate of a vector.)}
+\FunctionTok{options}\NormalTok{(}\StringTok{"orthogonal"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $orthogonal
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# A set of nonzero vectors that are mutually orthogonal are necessarily lin{-}}
+\CommentTok{\# early independent. To see this, we show it for any two orthogonal vectors}
+\CommentTok{\# and then indicate the pattern that extends to three or more vectors. Sup{-}}
+\CommentTok{\# pose v 1 and v 2 are nonzero and are orthogonal; that is, v 1 , v 2 = 0. We }
+\CommentTok{\# see}
+\CommentTok{\# immediately that if there is a scalar a such that v 1 = av 2 , then a must be}
+\CommentTok{\# nonzero and we have a contradiction because v 1 , v 2 = a v 1 , v 1 = 0. For }
+\CommentTok{\# three}
+\CommentTok{\# mutually orthogonal vectors, v 1 , v 2 , and v 3 , we consider }
+\CommentTok{\# v 1 = av 2 + bv 3 for a}
+ \CommentTok{\#or b nonzero, and arrive at the same contradiction.}
+\FunctionTok{set.seed}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\AttributeTok{v =} \DecValTok{1}\NormalTok{, }\AttributeTok{v =} \DecValTok{2}\NormalTok{, }\AttributeTok{v =} \DecValTok{3}\NormalTok{))}
+\NormalTok{orthogonal }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        v        v        v 
+## 1.909297 2.909297 3.909297
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Two vector spaces V 1 and V 2 are said to be orthogonal, written V 1 ⊥ V 2 ,}
+\CommentTok{\# if each vector in one is orthogonal to every vector in the other. }
+\CommentTok{\# If V 1 ⊥ V 2 and}
+\CommentTok{\# V 1 ⊕ V 2 = IR n , then V 2 is called the orthogonal complement of V 1 , }
+\CommentTok{\# and this is}
+\CommentTok{\# written as V 2 = V 1 ⊥ . More generally, if V 1 ⊥ V 2 and V 1 ⊕ V 2 = V, t}
+\CommentTok{\# hen V 2 is}
+\CommentTok{\# called the orthogonal complement of V 1 with respect to V. This is obviously}
+\CommentTok{\# a symmetric relationship; if V 2 is the orthogonal complement of V 1 , then }
+\CommentTok{\# V 1}
+\CommentTok{\# is the orthogonal complement of V 2 .}
+\NormalTok{vec }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(orthogonal, norms)}
+\NormalTok{vec }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## v v v 
+## 1 2 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# If B 1 is a basis set for V 1 , B 2 is a basis set for V 2 , and V 2 is the }
+\CommentTok{\# orthogonal}
+\CommentTok{\# complement of V 1 with respect to V, then B 1 ∪ B 2 is a basis set for V. }
+\CommentTok{\# It is}
+\CommentTok{\# a basis set because since V 1 and V 2 are orthogonal, it must be the case that}
+\CommentTok{\# B 1 ∩ B 2 = ∅.}
+\CommentTok{\# If V 1 ⊂ V, V 2 ⊂ V, V 1 ⊥ V 2 , and dim(V 1 ) + dim(V 2 ) = dim(V), then}
+\CommentTok{\# V 1 ⊕ V 2 = V;}
+\FunctionTok{dim}\NormalTok{(norms) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# that is, V 2 is the orthogonal complement of V 1 . We see this by ﬁrst letting }
+\CommentTok{\# B 1 and B 2 be bases for V 1 and V 2 . Now V 1 ⊥ V 2 implies that B 1 ∩ B }
+\CommentTok{\# 2 = ∅ and dim(V 1 ) + dim(V 2 ) = dim(V) implies \#(B 1 ) + \#(B 2 ) = \#(B), }
+\CommentTok{\# for any basis set B for V; hence, B 1 ∪ B 2 is a basis set for V.}
+\NormalTok{vb }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{b =} \DecValTok{1}\NormalTok{, }\AttributeTok{b =} \DecValTok{2}\NormalTok{, }\AttributeTok{v =} \DecValTok{1}\NormalTok{, }\AttributeTok{v =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{dim}\NormalTok{(vb)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vb}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## b b v v 
+## 1 2 1 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2.1.9 The “One Vector”}
+\CommentTok{\# Another often useful vector is the vector with all elements equal to 1. We }
+\CommentTok{\# call this the “one vector” and denote it by 1 or by 1 n . The one vector can }
+\CommentTok{\# be used in the representation of the sum of the elements in a vector:}
+\FunctionTok{c}\NormalTok{(}\StringTok{"https://tidyselect.r{-}lib.org/reference/faq{-}selection{-}context.html"}\NormalTok{, }
+       \AttributeTok{vars =} \ConstantTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                                                     
+## "https://tidyselect.r-lib.org/reference/faq-selection-context.html"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The one vector is also called the “summing vector”.}
+\FunctionTok{summary}\NormalTok{(}\AttributeTok{.data =} \StringTok{"dplyr"}\NormalTok{, vb, }\AttributeTok{groups =} \ConstantTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     1.0     1.0     1.5     1.5     2.0     2.0
+\end{verbatim}
+
+\end{document}

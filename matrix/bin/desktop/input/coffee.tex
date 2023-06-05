@@ -1,0 +1,925 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={coffee.r},
+  pdfauthor={denis},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{coffee.r}
+\author{denis}
+\date{2021-07-14}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/usr/bin/r}
+
+\CommentTok{\# 2.2.4 Orthogonalization Transformations}
+\CommentTok{\# Given m nonnull, linearly independent vectors, x 1 , . . . , x m , it is easy }
+\CommentTok{\# to form m orthonormal vectors, x̃ 1 , . . . , x̃ m , that span the same space}
+\CommentTok{\# . A simple way to do this is sequentially. First normalize x 1 and call this }
+\CommentTok{\# x̃ 1 . Next, project x 2 onto x̃ 1 and subtract this projection from x 2 }
+\CommentTok{\# . The result is orthogonal to x̃ 1 ; hence, normalize this and call it x̃ 2 .}
+\CommentTok{\# These erst two steps, which are illustrated}
+\CommentTok{\# in Figure 2.2, are}
+\NormalTok{m }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{nonnull =} \DecValTok{1}\NormalTok{, }\AttributeTok{easy =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{orthonormal =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+       \AttributeTok{project =} \DecValTok{1}\NormalTok{, }\AttributeTok{subtract =} \DecValTok{2}\NormalTok{, }\AttributeTok{call =} \DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# These are called Gram{-}Schmidt transformations.}
+\CommentTok{\# The Gram{-}Schmidt transformations can be continued with all of the vectors in }
+\CommentTok{\# the linearly independent set. There are two straightforward ways equations }
+\CommentTok{\# (2.34) can be extended. One method generalizes the second equation in}
+\NormalTok{eq }\OtherTok{\textless{}{-}}\NormalTok{ m}
+\FunctionTok{summary}\NormalTok{(m, eq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     1.0     1.0     1.0     1.5     2.0     3.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{xy.coords}\NormalTok{(m, eq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $x
+##  [1] 1 1 1 1 1 2 3 1 2 2
+## 
+## $y
+##  [1] 1 1 1 1 1 2 3 1 2 2
+## 
+## $xlab
+## NULL
+## 
+## $ylab
+## NULL
+\end{verbatim}
+
+\begin{Schunk}
+\begin{Sinput}
+R> library("car") # also loads the carData package
+R> Prestige$type <- factor(Prestige$type, levels=c("bc", "wc", "prof"))
+R> lm1 <- lm(prestige ~ education + poly(women, 2) +
++                log(income)*type, data=Prestige)
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> S(lm1)
+\end{Sinput}
+\begin{Soutput}
+Call: lm(formula = prestige ~ education + poly(women, 2) + log(income) * type,
+         data = Prestige)
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)
+(Intercept)          -137.500     23.522   -5.85  8.2e-08
+education               2.959      0.582    5.09  2.0e-06
+poly(women, 2)1        28.339     10.190    2.78   0.0066
+poly(women, 2)2        12.566      7.095    1.77   0.0800
+log(income)            17.514      2.916    6.01  4.1e-08
+typewc                  0.969     39.495    0.02   0.9805
+typeprof               74.276     30.736    2.42   0.0177
+log(income):typewc     -0.466      4.620   -0.10   0.9199
+log(income):typeprof   -7.698      3.451   -2.23   0.0282
+
+Residual standard deviation: 6.2 on 89 degrees of freedom
+  (4 observations deleted due to missingness)
+Multiple R-squared: 0.879
+F-statistic: 81.1 on 8 and 89 DF,  p-value: <2e-16 
+   AIC    BIC 
+646.26 672.11 
+\end{Soutput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> library("effects")
+R> e1.lm1 <- predictorEffect("education", lm1)
+R> plot(e1.lm1)
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> brief(e1.lm1$model.matrix)
+\end{Sinput}
+\begin{Soutput}
+50 x 9 matrix (45 rows and 5 columns omitted)
+   (Intercept) education . . . log(income):typewc log(income):typeprof
+1            1      6.38                   2.0758               2.7979
+2            1      6.58                   2.0758               2.7979
+3            1      6.77                   2.0758               2.7979
+. . .                                                                      
+49           1     15.80                   2.0758               2.7979
+50           1     16.00                   2.0758               2.7979
+\end{Soutput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> e1a.lm1 <- predictorEffect("education", lm1, focal.levels=5)
+R> e1a.lm1
+\end{Sinput}
+\begin{Soutput}
+
+ education predictor effect
+
+ education effect
+education
+   6.4    8.8     11     14     16 
+35.864 42.965 49.474 58.351 64.268 
+\end{Soutput}
+\begin{Sinput}
+R> summary(e1a.lm1)
+\end{Sinput}
+\begin{Soutput}
+
+ education effect
+education
+   6.4    8.8     11     14     16 
+35.864 42.965 49.474 58.351 64.268 
+
+ Lower 95 Percent Confidence Limits
+education
+   6.4    8.8     11     14     16 
+29.930 39.334 46.923 54.079 57.989 
+
+ Upper 95 Percent Confidence Limits
+education
+   6.4    8.8     11     14     16 
+41.798 46.596 52.026 62.623 70.548 
+\end{Soutput}
+\begin{Sinput}
+R> as.data.frame(e1a.lm1)
+\end{Sinput}
+\begin{Soutput}
+  education    fit     se  lower  upper
+1       6.4 35.864 2.9865 29.930 41.798
+2       8.8 42.965 1.8275 39.334 46.596
+3      11.0 49.474 1.2842 46.923 52.026
+4      14.0 58.351 2.1500 54.079 62.623
+5      16.0 64.268 3.1604 57.989 70.548
+\end{Soutput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> e2.lm1 <- predictorEffect("income", lm1, focal.levels=5)
+R> as.data.frame(e2.lm1)
+\end{Sinput}
+\begin{Soutput}
+   income type    fit     se  lower  upper
+1    2000   bc 25.863 3.3037 19.299 32.428
+2    8000   bc 50.142 2.3737 45.426 54.859
+3   10000   bc 54.050 2.7996 48.487 59.613
+4   20000   bc 66.190 4.4814 57.285 75.094
+5   30000   bc 73.291 5.5708 62.222 84.360
+6    2000   wc 23.290 4.5674 14.214 32.365
+7    8000   wc 46.922 2.3106 42.331 51.513
+8   10000   wc 50.726 3.0575 44.651 56.802
+9   20000   wc 62.543 5.7716 51.075 74.011
+10  30000   wc 69.455 7.4432 54.665 84.244
+11   2000 prof 41.630 4.4812 32.726 50.534
+12   8000 prof 55.237 2.3316 50.605 59.870
+13  10000 prof 57.428 2.4552 52.549 62.306
+14  20000 prof 64.231 3.6170 57.045 71.418
+15  30000 prof 68.211 4.5680 59.135 77.288
+\end{Soutput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> plot(predictorEffect("income", lm1), 
++         lines=list(multiline=TRUE))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> plot(predictorEffect("type", lm1), lines=list(multiline=TRUE))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> eall.lm1 <- predictorEffects(lm1)
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> #  plot(eall.lm1)
+R> #  plot(predictorEffects(lm1))
+R> #  plot(predictorEffects(lm1, ~ income + education + women + type))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> #  plot(predictorEffects(lm1, ~ type + education))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> #  plot(predictorEffects(lm1, ~ women))
+R> #  plot(predictorEffects(lm1)[[3]])
+R> #  plot(predictorEffect("women", lm1))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> e3.lm1 <- predictorEffect("type", lm1)
+R> plot(e3.lm1, lines=list(multiline=TRUE))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> plot(e3.lm1, lines=list(multiline=FALSE)) # the default
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> e3.lm1 <- predictorEffect("type", lm1,
++                              xlevels=list(income=c(5000, 15000, 25000)))
+R> plot(e3.lm1, lines=list(multiline=TRUE),
++         confint=list(style="bars"))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> plot(e3.lm1,
++         lines=list(multiline=FALSE), # the default
++         lattice=list(layout=c(3, 1)))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> e4.lm1 <- predictorEffect("education", lm1,
++                              se=list(type="scheffe", level=.99), 
++                              vcov.=hccm)
+R> plot(e4.lm1)
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> lm2 <- lm(log(prestige) ~ log(income) + education + type, Prestige)
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> plot(predictorEffects(lm2, ~ income))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> plot(predictorEffects(lm2, ~ income),
++         axes=list(
++           x=list(income=list(transform=list(trans=log, inverse=exp)))
++         ))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> plot(predictorEffects(lm2, ~ income),
++         main="Transformed Plot",
++         axes=list(
++           grid=TRUE,
++           x=list(rotate=30,
++                  rug=FALSE,
++                  income=list(transform=list(trans=log, inverse=exp),
++                              lab="income, log-scale",
++                              ticks=list(at=c(2000, 5000, 10000, 20000)),
++                              lim=c(1900, 21000))
++           )))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> # default:
+R> plot(predictorEffects(lm2, ~ education),
++         main="Default log(prestige)")
+\end{Sinput}
+\begin{Sinput}
+R> # Change only tick-mark labels to arithmetic scale:
+R> plot(predictorEffects(lm2, ~ education),
++         main="log(prestige), Arithmetic Ticks",
++         axes=list(y=list(transform=list(trans=log, inverse=exp),
++                          lab="prestige", type="rescale")))
+\end{Sinput}
+\begin{Sinput}
+R> # Replace log(presige) by prestige:
+R> plot(predictorEffects(lm2, ~ education),
++         main="Prestige in Arithmethic Scale",
++         axes=list(y=list(transform=exp, lab="prestige")))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> library("lme4") # for lmer()
+\end{Sinput}
+\begin{Soutput}
+Loading required package: Matrix
+\end{Soutput}
+\begin{Sinput}
+R> Blackmore$tran.exercise <- bcnPower(Blackmore$exercise, 
++                                        lambda=0.25, gamma=0.1)
+R> mm1 <- lmer(tran.exercise ~ I(age - 8)*group +
++                  (I(age - 8) | subject), data=Blackmore)
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> e1.mm1 <- predictorEffect("age", mm1)
+R> plot(e1.mm1, lines=list(multiline=TRUE), confint=list(style="auto"))
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> f.trans <- function(x) bcnPower(x, lambda=0.25, gamma=0.1)
+R> f.inverse <- function(x) bcnPowerInverse(x, lambda=0.25, gamma=0.1)
+R> plot(e1.mm1, lines=list(multiline=TRUE),
++         confint=list(style="auto"),
++         axes=list(x=list(age=list(lab="Age (years)")),
++                   y=list(transform=list(trans=f.trans, inverse=f.inverse),
++                          type="response",
++                          lab="Exercise (hours/week)")),
++         lattice=list(key.args=list(x=.20, y=.75, corner=c(0, 0), 
++                                    padding.text=1.25)),
++         main=""
++    )
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> data("Blowdown")
+\end{Sinput}
+\begin{Soutput}
+Warning in data("Blowdown"): data set 'Blowdown' not found
+\end{Soutput}
+\begin{Sinput}
+R> gm1 <- c(y ~ log(d) + s + spp, family=binomial, data=535)
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> format.default(gm1)
+\end{Sinput}
+\begin{Soutput}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "y ~ log(d) + s + spp" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   family 
+"function (link = \"logit\") , {,     linktemp <- substitute(link),     if (!is.character(linktemp)) ,         linktemp <- deparse(linktemp),     okLinks <- c(\"logit\", \"probit\", \"cloglog\", \"cauchit\", \"log\"),     if (linktemp %in% okLinks) ,         stats <- make.link(linktemp),     else if (is.character(link)) {,         stats <- make.link(link),         linktemp <- link,     },     else {,         if (inherits(link, \"link-glm\")) {,             stats <- link,             if (!is.null(stats$name)) ,                 linktemp <- stats$name,         },         else {,             stop(gettextf(\"link \\\"%s\\\" not available for binomial family; available links are %s\", ,                 linktemp, paste(sQuote(okLinks), collapse = \", \")), ,                 domain = NA),         },     },     variance <- function(mu) mu * (1 - mu),     validmu <- function(mu) all(is.finite(mu)) && all(mu > 0 & ,         mu < 1),     dev.resids <- function(y, mu, wt) .Call(C_binomial_dev_resids, ,         y, mu, wt),     aic <- function(y, n, mu, wt, dev) {,         m <- if (any(n > 1)) ,             n,         else wt,         -2 * sum(ifelse(m > 0, (wt/m), 0) * dbinom(round(m * ,             y), round(m), mu, log = TRUE)),     },     initialize <- expression({,         if (NCOL(y) == 1) {,             if (is.factor(y)) y <- y != levels(y)[1L],             n <- rep.int(1, nobs),             y[weights == 0] <- 0,             if (any(y < 0 | y > 1)) stop(\"y values must be 0 <= y <= 1\"),             mustart <- (weights * y + 0.5)/(weights + 1),             m <- weights * y,             if (any(abs(m - round(m)) > 0.001)) warning(\"non-integer #successes in a binomial glm!\"),         } else if (NCOL(y) == 2) {,             if (any(abs(y - round(y)) > 0.001)) warning(\"non-integer counts in a binomial glm!\"),             n <- y[, 1] + y[, 2],             y <- ifelse(n == 0, 0, y[, 1]/n),             weights <- weights * n,             mustart <- (n * y + 0.5)/(n + 1),         } else stop(\"for the 'binomial' family, y must be a vector of 0 and 1's\\nor a 2 column matrix where col 1 is no. successes and col 2 is no. failures\"),     }),     simfun <- function(object, nsim) {,         ftd <- fitted(object),         n <- length(ftd),         ntot <- n * nsim,         wts <- object$prior.weights,         if (any(wts%%1 != 0)) ,             stop(\"cannot simulate from non-integer prior.weights\"),         if (!is.null(m <- object$model)) {,             y <- model.response(m),             if (is.factor(y)) {,                 yy <- factor(1 + rbinom(ntot, size = 1, prob = ftd), ,                   labels = levels(y)),                 split(yy, rep(seq_len(nsim), each = n)),             },             else if (is.matrix(y) && ncol(y) == 2) {,                 yy <- vector(\"list\", nsim),                 for (i in seq_len(nsim)) {,                   Y <- rbinom(n, size = wts, prob = ftd),                   YY <- cbind(Y, wts - Y),                   colnames(YY) <- colnames(y),                   yy[[i]] <- YY,                 },                 yy,             },             else rbinom(ntot, size = wts, prob = ftd)/wts,         },         else rbinom(ntot, size = wts, prob = ftd)/wts,     },     structure(list(family = \"binomial\", link = linktemp, linkfun = stats$linkfun, ,         linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids, ,         aic = aic, mu.eta = stats$mu.eta, initialize = initialize, ,         validmu = validmu, valideta = stats$valideta, simulate = simfun), ,         class = \"family\"), }" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     data 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "535" 
+\end{Soutput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> e1.gm1 <- c("spp", gm1)
+R> c(e1.gm1, main="type='rescale'",
++         axes=list(y=list(type="rescale",
++                          lab="logit scale, probability labels"),
++                   x=list(rotate=30),
++                   grid=TRUE))
+\end{Sinput}
+\begin{Soutput}
+[[1]]
+[1] "spp"
+
+[[2]]
+y ~ log(d) + s + spp
+
+$family
+function (link = "logit") 
+{
+    linktemp <- substitute(link)
+    if (!is.character(linktemp)) 
+        linktemp <- deparse(linktemp)
+    okLinks <- c("logit", "probit", "cloglog", "cauchit", "log")
+    if (linktemp %in% okLinks) 
+        stats <- make.link(linktemp)
+    else if (is.character(link)) {
+        stats <- make.link(link)
+        linktemp <- link
+    }
+    else {
+        if (inherits(link, "link-glm")) {
+            stats <- link
+            if (!is.null(stats$name)) 
+                linktemp <- stats$name
+        }
+        else {
+            stop(gettextf("link \"%s\" not available for binomial family; available links are %s", 
+                linktemp, paste(sQuote(okLinks), collapse = ", ")), 
+                domain = NA)
+        }
+    }
+    variance <- function(mu) mu * (1 - mu)
+    validmu <- function(mu) all(is.finite(mu)) && all(mu > 0 & 
+        mu < 1)
+    dev.resids <- function(y, mu, wt) .Call(C_binomial_dev_resids, 
+        y, mu, wt)
+    aic <- function(y, n, mu, wt, dev) {
+        m <- if (any(n > 1)) 
+            n
+        else wt
+        -2 * sum(ifelse(m > 0, (wt/m), 0) * dbinom(round(m * 
+            y), round(m), mu, log = TRUE))
+    }
+    initialize <- expression({
+        if (NCOL(y) == 1) {
+            if (is.factor(y)) y <- y != levels(y)[1L]
+            n <- rep.int(1, nobs)
+            y[weights == 0] <- 0
+            if (any(y < 0 | y > 1)) stop("y values must be 0 <= y <= 1")
+            mustart <- (weights * y + 0.5)/(weights + 1)
+            m <- weights * y
+            if (any(abs(m - round(m)) > 0.001)) warning("non-integer #successes in a binomial glm!")
+        } else if (NCOL(y) == 2) {
+            if (any(abs(y - round(y)) > 0.001)) warning("non-integer counts in a binomial glm!")
+            n <- y[, 1] + y[, 2]
+            y <- ifelse(n == 0, 0, y[, 1]/n)
+            weights <- weights * n
+            mustart <- (n * y + 0.5)/(n + 1)
+        } else stop("for the 'binomial' family, y must be a vector of 0 and 1's\nor a 2 column matrix where col 1 is no. successes and col 2 is no. failures")
+    })
+    simfun <- function(object, nsim) {
+        ftd <- fitted(object)
+        n <- length(ftd)
+        ntot <- n * nsim
+        wts <- object$prior.weights
+        if (any(wts%%1 != 0)) 
+            stop("cannot simulate from non-integer prior.weights")
+        if (!is.null(m <- object$model)) {
+            y <- model.response(m)
+            if (is.factor(y)) {
+                yy <- factor(1 + rbinom(ntot, size = 1, prob = ftd), 
+                  labels = levels(y))
+                split(yy, rep(seq_len(nsim), each = n))
+            }
+            else if (is.matrix(y) && ncol(y) == 2) {
+                yy <- vector("list", nsim)
+                for (i in seq_len(nsim)) {
+                  Y <- rbinom(n, size = wts, prob = ftd)
+                  YY <- cbind(Y, wts - Y)
+                  colnames(YY) <- colnames(y)
+                  yy[[i]] <- YY
+                }
+                yy
+            }
+            else rbinom(ntot, size = wts, prob = ftd)/wts
+        }
+        else rbinom(ntot, size = wts, prob = ftd)/wts
+    }
+    structure(list(family = "binomial", link = linktemp, linkfun = stats$linkfun, 
+        linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids, 
+        aic = aic, mu.eta = stats$mu.eta, initialize = initialize, 
+        validmu = validmu, valideta = stats$valideta, simulate = simfun), 
+        class = "family")
+}
+<bytecode: 0x55697a2d71a8>
+<environment: namespace:stats>
+
+$data
+[1] 535
+
+$main
+[1] "type='rescale'"
+
+$axes.y
+$axes.y$type
+[1] "rescale"
+
+$axes.y$lab
+[1] "logit scale, probability labels"
+
+
+$axes.x
+$axes.x$rotate
+[1] 30
+
+
+$axes.grid
+[1] TRUE
+\end{Soutput}
+\begin{Sinput}
+R> c(e1.gm1, main="type='link'",
++         axes=list(y=list(type="link",
++                          lab="logit scale, logit labels"),
++                   x=list(rotate=30),
++                   grid=TRUE))
+\end{Sinput}
+\begin{Soutput}
+[[1]]
+[1] "spp"
+
+[[2]]
+y ~ log(d) + s + spp
+
+$family
+function (link = "logit") 
+{
+    linktemp <- substitute(link)
+    if (!is.character(linktemp)) 
+        linktemp <- deparse(linktemp)
+    okLinks <- c("logit", "probit", "cloglog", "cauchit", "log")
+    if (linktemp %in% okLinks) 
+        stats <- make.link(linktemp)
+    else if (is.character(link)) {
+        stats <- make.link(link)
+        linktemp <- link
+    }
+    else {
+        if (inherits(link, "link-glm")) {
+            stats <- link
+            if (!is.null(stats$name)) 
+                linktemp <- stats$name
+        }
+        else {
+            stop(gettextf("link \"%s\" not available for binomial family; available links are %s", 
+                linktemp, paste(sQuote(okLinks), collapse = ", ")), 
+                domain = NA)
+        }
+    }
+    variance <- function(mu) mu * (1 - mu)
+    validmu <- function(mu) all(is.finite(mu)) && all(mu > 0 & 
+        mu < 1)
+    dev.resids <- function(y, mu, wt) .Call(C_binomial_dev_resids, 
+        y, mu, wt)
+    aic <- function(y, n, mu, wt, dev) {
+        m <- if (any(n > 1)) 
+            n
+        else wt
+        -2 * sum(ifelse(m > 0, (wt/m), 0) * dbinom(round(m * 
+            y), round(m), mu, log = TRUE))
+    }
+    initialize <- expression({
+        if (NCOL(y) == 1) {
+            if (is.factor(y)) y <- y != levels(y)[1L]
+            n <- rep.int(1, nobs)
+            y[weights == 0] <- 0
+            if (any(y < 0 | y > 1)) stop("y values must be 0 <= y <= 1")
+            mustart <- (weights * y + 0.5)/(weights + 1)
+            m <- weights * y
+            if (any(abs(m - round(m)) > 0.001)) warning("non-integer #successes in a binomial glm!")
+        } else if (NCOL(y) == 2) {
+            if (any(abs(y - round(y)) > 0.001)) warning("non-integer counts in a binomial glm!")
+            n <- y[, 1] + y[, 2]
+            y <- ifelse(n == 0, 0, y[, 1]/n)
+            weights <- weights * n
+            mustart <- (n * y + 0.5)/(n + 1)
+        } else stop("for the 'binomial' family, y must be a vector of 0 and 1's\nor a 2 column matrix where col 1 is no. successes and col 2 is no. failures")
+    })
+    simfun <- function(object, nsim) {
+        ftd <- fitted(object)
+        n <- length(ftd)
+        ntot <- n * nsim
+        wts <- object$prior.weights
+        if (any(wts%%1 != 0)) 
+            stop("cannot simulate from non-integer prior.weights")
+        if (!is.null(m <- object$model)) {
+            y <- model.response(m)
+            if (is.factor(y)) {
+                yy <- factor(1 + rbinom(ntot, size = 1, prob = ftd), 
+                  labels = levels(y))
+                split(yy, rep(seq_len(nsim), each = n))
+            }
+            else if (is.matrix(y) && ncol(y) == 2) {
+                yy <- vector("list", nsim)
+                for (i in seq_len(nsim)) {
+                  Y <- rbinom(n, size = wts, prob = ftd)
+                  YY <- cbind(Y, wts - Y)
+                  colnames(YY) <- colnames(y)
+                  yy[[i]] <- YY
+                }
+                yy
+            }
+            else rbinom(ntot, size = wts, prob = ftd)/wts
+        }
+        else rbinom(ntot, size = wts, prob = ftd)/wts
+    }
+    structure(list(family = "binomial", link = linktemp, linkfun = stats$linkfun, 
+        linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids, 
+        aic = aic, mu.eta = stats$mu.eta, initialize = initialize, 
+        validmu = validmu, valideta = stats$valideta, simulate = simfun), 
+        class = "family")
+}
+<bytecode: 0x55697a2d71a8>
+<environment: namespace:stats>
+
+$data
+[1] 535
+
+$main
+[1] "type='link'"
+
+$axes.y
+$axes.y$type
+[1] "link"
+
+$axes.y$lab
+[1] "logit scale, logit labels"
+
+
+$axes.x
+$axes.x$rotate
+[1] 30
+
+
+$axes.grid
+[1] TRUE
+\end{Soutput}
+\begin{Sinput}
+R> c(e1.gm1, main="type='response'",
++         axes=list(y=list(type="response", grid=TRUE,
++                          lab="probabilty scale, probability labels"),
++                   x=list(rotate=30),
++                   grid=TRUE))
+\end{Sinput}
+\begin{Soutput}
+[[1]]
+[1] "spp"
+
+[[2]]
+y ~ log(d) + s + spp
+
+$family
+function (link = "logit") 
+{
+    linktemp <- substitute(link)
+    if (!is.character(linktemp)) 
+        linktemp <- deparse(linktemp)
+    okLinks <- c("logit", "probit", "cloglog", "cauchit", "log")
+    if (linktemp %in% okLinks) 
+        stats <- make.link(linktemp)
+    else if (is.character(link)) {
+        stats <- make.link(link)
+        linktemp <- link
+    }
+    else {
+        if (inherits(link, "link-glm")) {
+            stats <- link
+            if (!is.null(stats$name)) 
+                linktemp <- stats$name
+        }
+        else {
+            stop(gettextf("link \"%s\" not available for binomial family; available links are %s", 
+                linktemp, paste(sQuote(okLinks), collapse = ", ")), 
+                domain = NA)
+        }
+    }
+    variance <- function(mu) mu * (1 - mu)
+    validmu <- function(mu) all(is.finite(mu)) && all(mu > 0 & 
+        mu < 1)
+    dev.resids <- function(y, mu, wt) .Call(C_binomial_dev_resids, 
+        y, mu, wt)
+    aic <- function(y, n, mu, wt, dev) {
+        m <- if (any(n > 1)) 
+            n
+        else wt
+        -2 * sum(ifelse(m > 0, (wt/m), 0) * dbinom(round(m * 
+            y), round(m), mu, log = TRUE))
+    }
+    initialize <- expression({
+        if (NCOL(y) == 1) {
+            if (is.factor(y)) y <- y != levels(y)[1L]
+            n <- rep.int(1, nobs)
+            y[weights == 0] <- 0
+            if (any(y < 0 | y > 1)) stop("y values must be 0 <= y <= 1")
+            mustart <- (weights * y + 0.5)/(weights + 1)
+            m <- weights * y
+            if (any(abs(m - round(m)) > 0.001)) warning("non-integer #successes in a binomial glm!")
+        } else if (NCOL(y) == 2) {
+            if (any(abs(y - round(y)) > 0.001)) warning("non-integer counts in a binomial glm!")
+            n <- y[, 1] + y[, 2]
+            y <- ifelse(n == 0, 0, y[, 1]/n)
+            weights <- weights * n
+            mustart <- (n * y + 0.5)/(n + 1)
+        } else stop("for the 'binomial' family, y must be a vector of 0 and 1's\nor a 2 column matrix where col 1 is no. successes and col 2 is no. failures")
+    })
+    simfun <- function(object, nsim) {
+        ftd <- fitted(object)
+        n <- length(ftd)
+        ntot <- n * nsim
+        wts <- object$prior.weights
+        if (any(wts%%1 != 0)) 
+            stop("cannot simulate from non-integer prior.weights")
+        if (!is.null(m <- object$model)) {
+            y <- model.response(m)
+            if (is.factor(y)) {
+                yy <- factor(1 + rbinom(ntot, size = 1, prob = ftd), 
+                  labels = levels(y))
+                split(yy, rep(seq_len(nsim), each = n))
+            }
+            else if (is.matrix(y) && ncol(y) == 2) {
+                yy <- vector("list", nsim)
+                for (i in seq_len(nsim)) {
+                  Y <- rbinom(n, size = wts, prob = ftd)
+                  YY <- cbind(Y, wts - Y)
+                  colnames(YY) <- colnames(y)
+                  yy[[i]] <- YY
+                }
+                yy
+            }
+            else rbinom(ntot, size = wts, prob = ftd)/wts
+        }
+        else rbinom(ntot, size = wts, prob = ftd)/wts
+    }
+    structure(list(family = "binomial", link = linktemp, linkfun = stats$linkfun, 
+        linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids, 
+        aic = aic, mu.eta = stats$mu.eta, initialize = initialize, 
+        validmu = validmu, valideta = stats$valideta, simulate = simfun), 
+        class = "family")
+}
+<bytecode: 0x55697a2d71a8>
+<environment: namespace:stats>
+
+$data
+[1] 535
+
+$main
+[1] "type='response'"
+
+$axes.y
+$axes.y$type
+[1] "response"
+
+$axes.y$grid
+[1] TRUE
+
+$axes.y$lab
+[1] "probabilty scale, probability labels"
+
+
+$axes.x
+$axes.x$rotate
+[1] 30
+
+
+$axes.grid
+[1] TRUE
+\end{Soutput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> Blowdown <- factor(535,  # reorder levels of spp
++                            levels=levels(535))
+R> gm2 <- c(gm1)   # refit model
+R> format.default(gm2)
+\end{Sinput}
+\begin{Soutput}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "y ~ log(d) + s + spp" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   family 
+"function (link = \"logit\") , {,     linktemp <- substitute(link),     if (!is.character(linktemp)) ,         linktemp <- deparse(linktemp),     okLinks <- c(\"logit\", \"probit\", \"cloglog\", \"cauchit\", \"log\"),     if (linktemp %in% okLinks) ,         stats <- make.link(linktemp),     else if (is.character(link)) {,         stats <- make.link(link),         linktemp <- link,     },     else {,         if (inherits(link, \"link-glm\")) {,             stats <- link,             if (!is.null(stats$name)) ,                 linktemp <- stats$name,         },         else {,             stop(gettextf(\"link \\\"%s\\\" not available for binomial family; available links are %s\", ,                 linktemp, paste(sQuote(okLinks), collapse = \", \")), ,                 domain = NA),         },     },     variance <- function(mu) mu * (1 - mu),     validmu <- function(mu) all(is.finite(mu)) && all(mu > 0 & ,         mu < 1),     dev.resids <- function(y, mu, wt) .Call(C_binomial_dev_resids, ,         y, mu, wt),     aic <- function(y, n, mu, wt, dev) {,         m <- if (any(n > 1)) ,             n,         else wt,         -2 * sum(ifelse(m > 0, (wt/m), 0) * dbinom(round(m * ,             y), round(m), mu, log = TRUE)),     },     initialize <- expression({,         if (NCOL(y) == 1) {,             if (is.factor(y)) y <- y != levels(y)[1L],             n <- rep.int(1, nobs),             y[weights == 0] <- 0,             if (any(y < 0 | y > 1)) stop(\"y values must be 0 <= y <= 1\"),             mustart <- (weights * y + 0.5)/(weights + 1),             m <- weights * y,             if (any(abs(m - round(m)) > 0.001)) warning(\"non-integer #successes in a binomial glm!\"),         } else if (NCOL(y) == 2) {,             if (any(abs(y - round(y)) > 0.001)) warning(\"non-integer counts in a binomial glm!\"),             n <- y[, 1] + y[, 2],             y <- ifelse(n == 0, 0, y[, 1]/n),             weights <- weights * n,             mustart <- (n * y + 0.5)/(n + 1),         } else stop(\"for the 'binomial' family, y must be a vector of 0 and 1's\\nor a 2 column matrix where col 1 is no. successes and col 2 is no. failures\"),     }),     simfun <- function(object, nsim) {,         ftd <- fitted(object),         n <- length(ftd),         ntot <- n * nsim,         wts <- object$prior.weights,         if (any(wts%%1 != 0)) ,             stop(\"cannot simulate from non-integer prior.weights\"),         if (!is.null(m <- object$model)) {,             y <- model.response(m),             if (is.factor(y)) {,                 yy <- factor(1 + rbinom(ntot, size = 1, prob = ftd), ,                   labels = levels(y)),                 split(yy, rep(seq_len(nsim), each = n)),             },             else if (is.matrix(y) && ncol(y) == 2) {,                 yy <- vector(\"list\", nsim),                 for (i in seq_len(nsim)) {,                   Y <- rbinom(n, size = wts, prob = ftd),                   YY <- cbind(Y, wts - Y),                   colnames(YY) <- colnames(y),                   yy[[i]] <- YY,                 },                 yy,             },             else rbinom(ntot, size = wts, prob = ftd)/wts,         },         else rbinom(ntot, size = wts, prob = ftd)/wts,     },     structure(list(family = \"binomial\", link = linktemp, linkfun = stats$linkfun, ,         linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids, ,         aic = aic, mu.eta = stats$mu.eta, initialize = initialize, ,         validmu = validmu, valideta = stats$valideta, simulate = simfun), ,         class = \"family\"), }" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     data 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "535" 
+\end{Soutput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> gm3 <- c(gm2, ~ . + s:log(d)) # add an interaction
+R> format.default(gm3)
+\end{Sinput}
+\begin{Soutput}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "y ~ log(d) + s + spp" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   family 
+"function (link = \"logit\") , {,     linktemp <- substitute(link),     if (!is.character(linktemp)) ,         linktemp <- deparse(linktemp),     okLinks <- c(\"logit\", \"probit\", \"cloglog\", \"cauchit\", \"log\"),     if (linktemp %in% okLinks) ,         stats <- make.link(linktemp),     else if (is.character(link)) {,         stats <- make.link(link),         linktemp <- link,     },     else {,         if (inherits(link, \"link-glm\")) {,             stats <- link,             if (!is.null(stats$name)) ,                 linktemp <- stats$name,         },         else {,             stop(gettextf(\"link \\\"%s\\\" not available for binomial family; available links are %s\", ,                 linktemp, paste(sQuote(okLinks), collapse = \", \")), ,                 domain = NA),         },     },     variance <- function(mu) mu * (1 - mu),     validmu <- function(mu) all(is.finite(mu)) && all(mu > 0 & ,         mu < 1),     dev.resids <- function(y, mu, wt) .Call(C_binomial_dev_resids, ,         y, mu, wt),     aic <- function(y, n, mu, wt, dev) {,         m <- if (any(n > 1)) ,             n,         else wt,         -2 * sum(ifelse(m > 0, (wt/m), 0) * dbinom(round(m * ,             y), round(m), mu, log = TRUE)),     },     initialize <- expression({,         if (NCOL(y) == 1) {,             if (is.factor(y)) y <- y != levels(y)[1L],             n <- rep.int(1, nobs),             y[weights == 0] <- 0,             if (any(y < 0 | y > 1)) stop(\"y values must be 0 <= y <= 1\"),             mustart <- (weights * y + 0.5)/(weights + 1),             m <- weights * y,             if (any(abs(m - round(m)) > 0.001)) warning(\"non-integer #successes in a binomial glm!\"),         } else if (NCOL(y) == 2) {,             if (any(abs(y - round(y)) > 0.001)) warning(\"non-integer counts in a binomial glm!\"),             n <- y[, 1] + y[, 2],             y <- ifelse(n == 0, 0, y[, 1]/n),             weights <- weights * n,             mustart <- (n * y + 0.5)/(n + 1),         } else stop(\"for the 'binomial' family, y must be a vector of 0 and 1's\\nor a 2 column matrix where col 1 is no. successes and col 2 is no. failures\"),     }),     simfun <- function(object, nsim) {,         ftd <- fitted(object),         n <- length(ftd),         ntot <- n * nsim,         wts <- object$prior.weights,         if (any(wts%%1 != 0)) ,             stop(\"cannot simulate from non-integer prior.weights\"),         if (!is.null(m <- object$model)) {,             y <- model.response(m),             if (is.factor(y)) {,                 yy <- factor(1 + rbinom(ntot, size = 1, prob = ftd), ,                   labels = levels(y)),                 split(yy, rep(seq_len(nsim), each = n)),             },             else if (is.matrix(y) && ncol(y) == 2) {,                 yy <- vector(\"list\", nsim),                 for (i in seq_len(nsim)) {,                   Y <- rbinom(n, size = wts, prob = ftd),                   YY <- cbind(Y, wts - Y),                   colnames(YY) <- colnames(y),                   yy[[i]] <- YY,                 },                 yy,             },             else rbinom(ntot, size = wts, prob = ftd)/wts,         },         else rbinom(ntot, size = wts, prob = ftd)/wts,     },     structure(list(family = \"binomial\", link = linktemp, linkfun = stats$linkfun, ,         linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids, ,         aic = aic, mu.eta = stats$mu.eta, initialize = initialize, ,         validmu = validmu, valideta = stats$valideta, simulate = simfun), ,         class = \"family\"), }" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     data 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "535" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          "~. + s:log(d)" 
+\end{Soutput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> format.default(gm3)
+\end{Sinput}
+\begin{Soutput}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "y ~ log(d) + s + spp" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   family 
+"function (link = \"logit\") , {,     linktemp <- substitute(link),     if (!is.character(linktemp)) ,         linktemp <- deparse(linktemp),     okLinks <- c(\"logit\", \"probit\", \"cloglog\", \"cauchit\", \"log\"),     if (linktemp %in% okLinks) ,         stats <- make.link(linktemp),     else if (is.character(link)) {,         stats <- make.link(link),         linktemp <- link,     },     else {,         if (inherits(link, \"link-glm\")) {,             stats <- link,             if (!is.null(stats$name)) ,                 linktemp <- stats$name,         },         else {,             stop(gettextf(\"link \\\"%s\\\" not available for binomial family; available links are %s\", ,                 linktemp, paste(sQuote(okLinks), collapse = \", \")), ,                 domain = NA),         },     },     variance <- function(mu) mu * (1 - mu),     validmu <- function(mu) all(is.finite(mu)) && all(mu > 0 & ,         mu < 1),     dev.resids <- function(y, mu, wt) .Call(C_binomial_dev_resids, ,         y, mu, wt),     aic <- function(y, n, mu, wt, dev) {,         m <- if (any(n > 1)) ,             n,         else wt,         -2 * sum(ifelse(m > 0, (wt/m), 0) * dbinom(round(m * ,             y), round(m), mu, log = TRUE)),     },     initialize <- expression({,         if (NCOL(y) == 1) {,             if (is.factor(y)) y <- y != levels(y)[1L],             n <- rep.int(1, nobs),             y[weights == 0] <- 0,             if (any(y < 0 | y > 1)) stop(\"y values must be 0 <= y <= 1\"),             mustart <- (weights * y + 0.5)/(weights + 1),             m <- weights * y,             if (any(abs(m - round(m)) > 0.001)) warning(\"non-integer #successes in a binomial glm!\"),         } else if (NCOL(y) == 2) {,             if (any(abs(y - round(y)) > 0.001)) warning(\"non-integer counts in a binomial glm!\"),             n <- y[, 1] + y[, 2],             y <- ifelse(n == 0, 0, y[, 1]/n),             weights <- weights * n,             mustart <- (n * y + 0.5)/(n + 1),         } else stop(\"for the 'binomial' family, y must be a vector of 0 and 1's\\nor a 2 column matrix where col 1 is no. successes and col 2 is no. failures\"),     }),     simfun <- function(object, nsim) {,         ftd <- fitted(object),         n <- length(ftd),         ntot <- n * nsim,         wts <- object$prior.weights,         if (any(wts%%1 != 0)) ,             stop(\"cannot simulate from non-integer prior.weights\"),         if (!is.null(m <- object$model)) {,             y <- model.response(m),             if (is.factor(y)) {,                 yy <- factor(1 + rbinom(ntot, size = 1, prob = ftd), ,                   labels = levels(y)),                 split(yy, rep(seq_len(nsim), each = n)),             },             else if (is.matrix(y) && ncol(y) == 2) {,                 yy <- vector(\"list\", nsim),                 for (i in seq_len(nsim)) {,                   Y <- rbinom(n, size = wts, prob = ftd),                   YY <- cbind(Y, wts - Y),                   colnames(YY) <- colnames(y),                   yy[[i]] <- YY,                 },                 yy,             },             else rbinom(ntot, size = wts, prob = ftd)/wts,         },         else rbinom(ntot, size = wts, prob = ftd)/wts,     },     structure(list(family = \"binomial\", link = linktemp, linkfun = stats$linkfun, ,         linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids, ,         aic = aic, mu.eta = stats$mu.eta, initialize = initialize, ,         validmu = validmu, valideta = stats$valideta, simulate = simfun), ,         class = \"family\"), }" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     data 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "535" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          "~. + s:log(d)" 
+\end{Soutput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+R> gm4 <- c(gm3, ~ . + spp:log(d))
+R> format.default(gm4)
+\end{Sinput}
+\begin{Soutput}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "y ~ log(d) + s + spp" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   family 
+"function (link = \"logit\") , {,     linktemp <- substitute(link),     if (!is.character(linktemp)) ,         linktemp <- deparse(linktemp),     okLinks <- c(\"logit\", \"probit\", \"cloglog\", \"cauchit\", \"log\"),     if (linktemp %in% okLinks) ,         stats <- make.link(linktemp),     else if (is.character(link)) {,         stats <- make.link(link),         linktemp <- link,     },     else {,         if (inherits(link, \"link-glm\")) {,             stats <- link,             if (!is.null(stats$name)) ,                 linktemp <- stats$name,         },         else {,             stop(gettextf(\"link \\\"%s\\\" not available for binomial family; available links are %s\", ,                 linktemp, paste(sQuote(okLinks), collapse = \", \")), ,                 domain = NA),         },     },     variance <- function(mu) mu * (1 - mu),     validmu <- function(mu) all(is.finite(mu)) && all(mu > 0 & ,         mu < 1),     dev.resids <- function(y, mu, wt) .Call(C_binomial_dev_resids, ,         y, mu, wt),     aic <- function(y, n, mu, wt, dev) {,         m <- if (any(n > 1)) ,             n,         else wt,         -2 * sum(ifelse(m > 0, (wt/m), 0) * dbinom(round(m * ,             y), round(m), mu, log = TRUE)),     },     initialize <- expression({,         if (NCOL(y) == 1) {,             if (is.factor(y)) y <- y != levels(y)[1L],             n <- rep.int(1, nobs),             y[weights == 0] <- 0,             if (any(y < 0 | y > 1)) stop(\"y values must be 0 <= y <= 1\"),             mustart <- (weights * y + 0.5)/(weights + 1),             m <- weights * y,             if (any(abs(m - round(m)) > 0.001)) warning(\"non-integer #successes in a binomial glm!\"),         } else if (NCOL(y) == 2) {,             if (any(abs(y - round(y)) > 0.001)) warning(\"non-integer counts in a binomial glm!\"),             n <- y[, 1] + y[, 2],             y <- ifelse(n == 0, 0, y[, 1]/n),             weights <- weights * n,             mustart <- (n * y + 0.5)/(n + 1),         } else stop(\"for the 'binomial' family, y must be a vector of 0 and 1's\\nor a 2 column matrix where col 1 is no. successes and col 2 is no. failures\"),     }),     simfun <- function(object, nsim) {,         ftd <- fitted(object),         n <- length(ftd),         ntot <- n * nsim,         wts <- object$prior.weights,         if (any(wts%%1 != 0)) ,             stop(\"cannot simulate from non-integer prior.weights\"),         if (!is.null(m <- object$model)) {,             y <- model.response(m),             if (is.factor(y)) {,                 yy <- factor(1 + rbinom(ntot, size = 1, prob = ftd), ,                   labels = levels(y)),                 split(yy, rep(seq_len(nsim), each = n)),             },             else if (is.matrix(y) && ncol(y) == 2) {,                 yy <- vector(\"list\", nsim),                 for (i in seq_len(nsim)) {,                   Y <- rbinom(n, size = wts, prob = ftd),                   YY <- cbind(Y, wts - Y),                   colnames(YY) <- colnames(y),                   yy[[i]] <- YY,                 },                 yy,             },             else rbinom(ntot, size = wts, prob = ftd)/wts,         },         else rbinom(ntot, size = wts, prob = ftd)/wts,     },     structure(list(family = \"binomial\", link = linktemp, linkfun = stats$linkfun, ,         linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids, ,         aic = aic, mu.eta = stats$mu.eta, initialize = initialize, ,         validmu = validmu, valideta = stats$valideta, simulate = simfun), ,         class = \"family\"), }" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     data 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "535" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          "~. + s:log(d)" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "~. + spp:log(d)" 
+\end{Soutput}
+\end{Schunk}
+
+\end{document}

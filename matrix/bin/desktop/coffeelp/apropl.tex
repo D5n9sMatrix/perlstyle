@@ -1,0 +1,543 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={apropl.r},
+  pdfauthor={denis},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{apropl.r}
+\author{denis}
+\date{2021-07-16}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/usr/bin/r}
+
+\CommentTok{\# For different types of functions, different basis sets may be appropriate.}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{A1ps }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{mp =} \FloatTok{12.5}\NormalTok{, }\AttributeTok{mc =} \FloatTok{12.3}\NormalTok{, }\AttributeTok{md =} \FloatTok{12.4}\NormalTok{)}
+\NormalTok{A1ps  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   mp   mc   md 
+## 12.5 12.3 12.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A2ps }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{pm =} \FloatTok{12.5}\NormalTok{, }\AttributeTok{pm =} \FloatTok{12.3}\NormalTok{, }\AttributeTok{pm =} \FloatTok{12.4}\NormalTok{)}
+\NormalTok{A2ps  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   pm   pm   pm 
+## 12.5 12.3 12.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ordered different value compared fireworks update laptop}
+\FunctionTok{diff}\NormalTok{(A1ps }\SpecialCharTok{\textgreater{}=}\NormalTok{ A2ps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## mc md 
+##  0  0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Polynomials are often used, and there are some standard sets of orthogonal }
+\CommentTok{\# polynomials, such as Jacobi, Hermite, and so on.}
+\FunctionTok{poly}\NormalTok{(A1ps, A2ps, }\AttributeTok{degree =} \DecValTok{1}\NormalTok{, }\AttributeTok{coefs =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{raw =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{simple =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              1.0           0.1
+## mp  7.071068e-01  7.071068e-01
+## mc -7.071068e-01 -7.071068e-01
+## md  9.813078e-17  9.813078e-17
+## attr(,"degree")
+## [1] 1 1
+## attr(,"coefs")
+## attr(,"coefs")[[1]]
+## attr(,"coefs")[[1]]$alpha
+## [1] 12.4
+## 
+## attr(,"coefs")[[1]]$norm2
+## [1] 1.00 3.00 0.02
+## 
+## 
+## attr(,"coefs")[[2]]
+## attr(,"coefs")[[2]]$alpha
+## [1] 12.4
+## 
+## attr(,"coefs")[[2]]$norm2
+## [1] 1.00 3.00 0.02
+## 
+## 
+## attr(,"class")
+## [1] "poly"   "matrix"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# For periodic functions especially, orthogonal trigonometric }
+\CommentTok{\# functions are useful.}
+\FunctionTok{trigamma}\NormalTok{(A1ps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         mp         mc         md 
+## 0.08328522 0.08469517 0.08398428
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{trigamma}\NormalTok{(A2ps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         pm         pm         pm 
+## 0.08328522 0.08469517 0.08398428
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2.2.6 Approximation of Vectors In high{-}dimensional vector spaces, it is often }
+\CommentTok{\# useful to approximate a given vector in terms of vectors from a lower }
+\CommentTok{\# dimensional space.}
+\FunctionTok{cov}\NormalTok{(A1ps, A2ps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.01
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Suppose, for example, that V ⊂ IR n is a vector space of dimension k }
+\CommentTok{\# (necessarily, k ≤ n) and x is a given n{-}vector.}
+\NormalTok{k }\OtherTok{=} \DecValTok{5}
+\NormalTok{n }\OtherTok{=} \DecValTok{1}
+
+\ControlFlowTok{if}\NormalTok{ (k }\SpecialCharTok{\textless{}}\NormalTok{ n) \{}
+    \FunctionTok{print}\NormalTok{(k }\SpecialCharTok{\textless{}}\NormalTok{ n)}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \FunctionTok{vector}\NormalTok{(}\AttributeTok{mode =} \StringTok{"logical"}\NormalTok{, }\AttributeTok{length =}\NormalTok{ 0L)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## logical(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# pipelines type procedure pass checkup method}
+\CommentTok{\# buffer lines ...}
+\CommentTok{\# We wish to determine a vector x̃ in V that approximates x.}
+\NormalTok{Vx }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{runif}\NormalTok{(n, }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \DecValTok{1}\NormalTok{), }\AttributeTok{open =} \DecValTok{1}\NormalTok{, }
+             \AttributeTok{encoding =} \FunctionTok{getOption}\NormalTok{(}\StringTok{"A2ps"}\NormalTok{)))}
+\NormalTok{Vx}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                open 
+## 0.2875775 1.0000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Optimally of the Fourier Coefficients}
+\NormalTok{googledrive}\SpecialCharTok{::}\FunctionTok{as\_id}\NormalTok{(}\StringTok{"http://a2ps.vx"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+## attr(,"class")
+## [1] "drive_id"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{attr}\NormalTok{(A2ps, }\AttributeTok{which =} \StringTok{"http://a2ps.vx"}\NormalTok{, }\AttributeTok{exact =} \StringTok{"http://a2ps.vx"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{drop}\NormalTok{(n }\SpecialCharTok{+} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{window}\NormalTok{(k }\SpecialCharTok{*}\NormalTok{ n)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+## attr(,"tsp")
+## [1] 1 1 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{attr}\NormalTok{(A2ps, }\AttributeTok{which =} \StringTok{"http://a2ps.vx"}\NormalTok{, }\AttributeTok{exact =} \StringTok{"http://a2ps.vx/tse"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# One obvious criterion would be based on a norm of the difference of the given }
+\CommentTok{\# vector and the approximating vector.}
+\FunctionTok{outer}\NormalTok{(A2ps, A1ps, }\AttributeTok{FUN =} \StringTok{"*"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        mp     mc     md
+## pm 156.25 153.75 155.00
+## pm 153.75 151.29 152.52
+## pm 155.00 152.52 153.76
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# lollipop val breadcrumb water}
+\NormalTok{loll }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{pop =} \FloatTok{2.4}\NormalTok{, }\AttributeTok{bread =} \FloatTok{2.4}\NormalTok{, }\AttributeTok{water =} \FloatTok{2.4}\NormalTok{)}
+\NormalTok{loll}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   pop bread water 
+##   2.4   2.4   2.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# This difference is a truncation error. Let u 1 , . . . , u k be an }
+\CommentTok{\# orthonormal basis set for V, and let}
+\NormalTok{u1 }\OtherTok{\textless{}{-}} \FunctionTok{trunc}\NormalTok{(loll, A1ps)}
+\NormalTok{u1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   pop bread water 
+##     2     2     2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# where the c i are the Fourier coeﬃcients of x, x, u i . Now l}
+\CommentTok{\# et v = a 1 u 1 + · · · + a k u k be any other vector in V, and consider}
+\NormalTok{xx }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{from =}\NormalTok{ u1, }\AttributeTok{to =}\NormalTok{ loll, }\AttributeTok{strict =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{xx}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   from.pop from.bread from.water     to.pop   to.bread   to.water     strict 
+##        2.0        2.0        2.0        2.4        2.4        2.4        1.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Therefore we have x − x ≤ x − v, and so x̃ is the best approximation of}
+\CommentTok{\# x with respect to the Euclidean norm in the k{-}dimensional vector space V.}
+\ControlFlowTok{if}\NormalTok{ (xx }\SpecialCharTok{!=}\NormalTok{ xx }\SpecialCharTok{||}\NormalTok{ xx }\SpecialCharTok{!=}\NormalTok{ xx)\{}
+    \FunctionTok{c}\NormalTok{(xx) }\SpecialCharTok{+}\NormalTok{ spacetime}\SpecialCharTok{::}\FunctionTok{geometry}\NormalTok{(}\AttributeTok{obj =}\NormalTok{ u1)}
+\NormalTok{\}}
+\NormalTok{xx}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   from.pop from.bread from.water     to.pop   to.bread   to.water     strict 
+##        2.0        2.0        2.0        2.4        2.4        2.4        1.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Choice of the Best Basis Subset}
+\CommentTok{\# Now, posing the problem another way, we may seek the best k{-}dimensional}
+\CommentTok{\# subspace of IR n from which to choose an approximating vector.}
+\NormalTok{IR }\OtherTok{\textless{}{-}} \FunctionTok{subset.default}\NormalTok{(xx, }\FunctionTok{missing}\NormalTok{(u1), A2ps)}
+\NormalTok{IR}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## named numeric(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# This question}
+\CommentTok{\# is not well{-}posed (because the one{-}dimensional vector space determined by x}
+\CommentTok{\# is the solution), but we can pose a related interesting question: suppose we}
+\CommentTok{\# have a Fourier expansion of x in terms of a set of n orthogonal basis vectors,}
+\CommentTok{\# u 1 , . . . , u n , and we want to choose the “best” k basis vectors from this }
+\CommentTok{\# set and use them to form an approximation of x.}
+\NormalTok{k }\OtherTok{=}\NormalTok{ n}
+\NormalTok{un }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(k, }\AttributeTok{color =} \DecValTok{99}\NormalTok{, }\AttributeTok{conf.level =} \FloatTok{0.95}\NormalTok{, }
+             \AttributeTok{std =} \DecValTok{12}\NormalTok{, }\AttributeTok{margin =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{),}
+             \AttributeTok{space =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{main =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{mfrow =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{mfcol =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{un}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 color conf.level        std    margin1    margin2      space 
+##       1.00      99.00       0.95      12.00       1.00       2.00       0.20
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# (This restriction of the problem is}
+\CommentTok{\# equivalent to choosing a coordinate system.)}
+\NormalTok{later}\SpecialCharTok{::}\FunctionTok{create\_loop}\NormalTok{(}\AttributeTok{autorun =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## <event loop>
+##   id: 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We see the solution immediately}
+\CommentTok{\# from inequality (2.42): we choose the k u i s corresponding to the k }
+\CommentTok{\# largest c i s}
+\CommentTok{\# in absolute value, and we take}
+\FunctionTok{call}\NormalTok{(}\StringTok{"k"}\NormalTok{, u1, }\FunctionTok{c}\NormalTok{(}\AttributeTok{i =} \FloatTok{2.42}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## k(c(pop = 2, bread = 2, water = 2), c(i = 2.42))
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{call}\NormalTok{(}\StringTok{"n"}\NormalTok{, xx)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## n(c(from.pop = 2, from.bread = 2, from.water = 2, to.pop = 2.4, 
+## to.bread = 2.4, to.water = 2.4, strict = 1))
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{outer}\NormalTok{(n, xx, }\AttributeTok{FUN =} \StringTok{"*"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      from.pop from.bread from.water to.pop to.bread to.water strict
+## [1,]        2          2          2    2.4      2.4      2.4      1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2.2.7 Flats, Acne Spaces, and Hyperplanes}
+\CommentTok{\# Given an n{-}dimensional vector space of order n, IR n for example, consider a}
+\CommentTok{\# system of m linear equations in the n{-}vector variable x,}
+\NormalTok{Acne }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(n, k, A2ps)}
+\NormalTok{Acne}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             pm   pm   pm 
+##  1.0  1.0 12.5 12.3 12.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m }\OtherTok{=} \DecValTok{12}
+\NormalTok{n }\OtherTok{=} \DecValTok{1}
+
+\CommentTok{\# where c 1 , . . . , c m are linearly independent n{-}vectors (and hence m ≤ n).}
+\NormalTok{c1 }\OtherTok{\textless{}{-}}\NormalTok{ m }\SpecialCharTok{\textless{}}\NormalTok{ n}
+\NormalTok{c1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The set of points defined by these linear equations is called a rat.}
+\NormalTok{PlantGrowth}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    weight group
+## 1    4.17  ctrl
+## 2    5.58  ctrl
+## 3    5.18  ctrl
+## 4    6.11  ctrl
+## 5    4.50  ctrl
+## 6    4.61  ctrl
+## 7    5.17  ctrl
+## 8    4.53  ctrl
+## 9    5.33  ctrl
+## 10   5.14  ctrl
+## 11   4.81  trt1
+## 12   4.17  trt1
+## 13   4.41  trt1
+## 14   3.59  trt1
+## 15   5.87  trt1
+## 16   3.83  trt1
+## 17   6.03  trt1
+## 18   4.89  trt1
+## 19   4.32  trt1
+## 20   4.69  trt1
+## 21   6.31  trt2
+## 22   5.12  trt2
+## 23   5.54  trt2
+## 24   5.50  trt2
+## 25   5.37  trt2
+## 26   5.29  trt2
+## 27   4.92  trt2
+## 28   6.15  trt2
+## 29   5.80  trt2
+## 30   5.26  trt2
+\end{verbatim}
+
+\end{document}

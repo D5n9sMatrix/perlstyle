@@ -1,0 +1,420 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={clp.r},
+  pdfauthor={denis},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{clp.r}
+\author{denis}
+\date{2021-07-12}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/usr/bin/r}
+
+\CommentTok{\# These properties in fact define a more general inner product for other kinds of}
+\CommentTok{\# mathematical objects for which an addition, an additive identity, and a mulch{-}}
+\CommentTok{\# application by a scalar are defined. (We should restate here that we assume the}
+\CommentTok{\# vectors have real elements. The dot product of vectors over the sorted weld}
+\CommentTok{\# is not an inner product because, if x is sorted, we can have x T x = 0 when}
+\FunctionTok{call}\NormalTok{(}\StringTok{"output"}\NormalTok{, }\StringTok{"x"}\NormalTok{, }\StringTok{"t"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## output("x", "t")
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{output }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{)}
+\NormalTok{output}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10 20
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2 Vectors and Vector Spaces}
+\CommentTok{\# x = 0. An alternative definition of a dot product using complex conjugates is}
+\CommentTok{\# an inner product, however.) Inner products are also defined for matrices, as we}
+\CommentTok{\# will discuss on page 74. We should note in passing that there are two different}
+\CommentTok{\# kinds of multiplication used in property 3. The erst multiplication is scalar}
+\CommentTok{\# multiplication, which we have defined above, and the second multiplication is}
+\CommentTok{\# ordinary multiplication in IR. There are also two different kinds of addition}
+\CommentTok{\# used in property 4. The erst addition is vector addition, defined above, and}
+\CommentTok{\# the second addition is ordinary addition in IR. The dot product can reveal}
+\CommentTok{\# fundamental relationships between the two vectors, as we will see later.}
+\CommentTok{\# A useful property of inner products is the Cauchy{-}Schwartz inequality:}
+\NormalTok{IR }\OtherTok{\textless{}{-}}\NormalTok{ later}\SpecialCharTok{::}\FunctionTok{global\_loop}\NormalTok{()}
+\NormalTok{IR}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## <event loop>
+##   id: 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# This relationship is also sometimes called the Cauchy{-}Bunyakovskii{-}Schwartz}
+\CommentTok{\# inequality. (Agustin{-}Louis Cauchy gave the inequality for the kind of dis{-}}
+\CommentTok{\# create inner products we are considering here, and Victor Bunyakovskii and}
+\CommentTok{\# Herman Schwartz independently extended it to more general inner products,}
+\CommentTok{\# defined on functions, for example.) The inequality is easy to see, by erst ob{-}}
+\CommentTok{\# serving that for every real number t,}
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{hist}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{clp_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# where the constants a, b, and c correspond to the dot products in the }
+\CommentTok{\# preceding equation. This quadratic in t cannot have two distinct real roots. }
+\CommentTok{\# Hence the discriminant, b 2 − 4ac, must be less than or equal to zero; }
+\CommentTok{\# that is,}
+\NormalTok{a }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{35}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{45}\NormalTok{, }\DecValTok{9}\NormalTok{)}
+\NormalTok{b }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{35}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{45}\NormalTok{, }\DecValTok{9}\NormalTok{)}
+\NormalTok{a }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(a)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  9.455979  4.041076 20.912945  5.720585 34.571817  8.989358 45.850904
+## [8]  9.412118
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  9.455979  4.041076 20.912945  5.720585 34.571817  8.989358 45.850904
+## [8]  9.412118
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# By substituting and taking square roots, we get the Cauchy{-}Schwarz inequal{-}}
+\CommentTok{\# ity. It is also clear from this proof that equality holds only if x = 0 }
+\CommentTok{\# or if y = rx,}
+\CommentTok{\# for some scalar r.}
+\NormalTok{r }\OtherTok{\textless{}{-}} \DecValTok{0}
+\NormalTok{r }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.841471
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2.1.5 Norms}
+\CommentTok{\# We consider a set of objects S that has an addition{-}type operator, +, a cor{-}}
+\CommentTok{\# responding additive identity, 0, and a scalar multiplication; that is, a }
+\CommentTok{\# multi{-}}
+\CommentTok{\# plication of the objects by a real (or complex) number. On such a set, a norm}
+\CommentTok{\# is a function, from S to IR that satisﬁes the following three conditions:}
+\NormalTok{IR }\OtherTok{=} \DecValTok{20}
+
+\CommentTok{\# 1. Nonnegativity and mapping of the identity:}
+\CommentTok{\# if x = 0, then x \textgreater{} 0, and 0 = 0 .}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{missing}\NormalTok{(IR)) \{}
+\NormalTok{  IR }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\StringTok{"input"}\NormalTok{, }\StringTok{"S4"}\NormalTok{)}
+  \FunctionTok{c}\NormalTok{(IR)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] "input"
+## 
+## [[2]]
+## [1] "S4"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2. Relation of scalar multiplication to real multiplication:}
+\CommentTok{\# ax = |a| x for real a.}
+\NormalTok{ax }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{)}
+\NormalTok{ax }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(ax)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8.989358
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 3. Triangle inequality:}
+\CommentTok{\# x + y ≤ x + y.}
+\FunctionTok{trigamma}\NormalTok{(ax)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.133137
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# (If property 1 is relaxed to require only x ≥ 0 for x = 0, the function is}
+\CommentTok{\# called a seminorm.) Because a norm is a function whose argument is a vector,}
+\CommentTok{\# we also often use a functional notation such as ρ(x) to represent a norm.}
+\ControlFlowTok{for}\NormalTok{ (ax }\ControlFlowTok{in} \FunctionTok{sin}\NormalTok{(ax)) \{}
+  \FunctionTok{c}\NormalTok{(ax)}
+\NormalTok{\}}
+\NormalTok{ax}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9893582
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sets of various types of objects (functions, for example) can have norms,}
+\CommentTok{\# but our interest in the present context is in norms for vectors and (later)}
+\CommentTok{\# for matrices. (The three properties above in fact deﬁne a more general norm}
+\CommentTok{\# for other kinds of mathematical objects for which an addition, an additive}
+\CommentTok{\# identity, and multiplication by a scalar are deﬁned. Norms are deﬁned for}
+\CommentTok{\# matrices, as we will discuss later. Note that there are two diﬀerent kinds of}
+\CommentTok{\# multiplication used in property 2 and two diﬀerent kinds of addition used in}
+\CommentTok{\# property 3.)}
+\NormalTok{later}\SpecialCharTok{::}\FunctionTok{with\_loop}\NormalTok{(}\AttributeTok{loop =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{999}\NormalTok{, }\AttributeTok{expr =} \StringTok{"compile"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "compile"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# A vector space together with a norm is called a normed space.}
+\CommentTok{\# For some types of objects, a norm of an object may be called its “length”}
+\CommentTok{\# or its “size”. (Recall the ambiguity of “length” of a vector that we mentioned}
+\CommentTok{\# at the beginning of this chapter.)}
+\FunctionTok{length}\NormalTok{(ax)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# L p Norms}
+\CommentTok{\# There are many norms that could be deﬁned for vectors. One type of norm is}
+\CommentTok{\# called an L p norm, often denoted as  · p . For p ≥ 1, it is deﬁned as}
+\NormalTok{Lp }\OtherTok{\textless{}{-}} \FunctionTok{normalizePath}\NormalTok{(}\AttributeTok{path =} \StringTok{"."}\NormalTok{, }\AttributeTok{winslash =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{"}\NormalTok{)}
+\NormalTok{Lp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "/home/denis/projects/perl/perlstyle/matrix/bin/desktop"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# This is also sometimes called the Minkowski norm and also the Hölder norm.}
+\CommentTok{\# It is easy to see that the L p norm satisﬁes the ﬁrst two conditions above. }
+\CommentTok{\# For}
+\CommentTok{\# general p ≥ 1 it is somewhat more diﬃcult to prove the triangular inequality}
+\CommentTok{\# (which for the L p norms is also called the Minkowski inequality), but for }
+\CommentTok{\# some}
+\CommentTok{\# special cases it is straightforward, as we will see below.}
+\NormalTok{p }\OtherTok{=} \DecValTok{16}
+\NormalTok{p }\SpecialCharTok{\textgreater{}} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# x 1 = i |x i |, also called the Manhattan norm because it corresponds}
+\CommentTok{\# to sums of distances along coordinate axes, as one would travel along the}
+\CommentTok{\# rectangular}
+\CommentTok{\# street plan of Manhattan.}
+\FunctionTok{retracemem}\NormalTok{(p, }\AttributeTok{previous =} \ConstantTok{NULL}\NormalTok{)}
+
+\CommentTok{\# x 2 =}
+\CommentTok{\# i x i , also called the Euclidean norm, the Euclidean length, or}
+\CommentTok{\# just the length of the vector. The L p norm}
+\CommentTok{\#  is the square root of the inner}
+\CommentTok{\# product of the vector with itself: x 2 =}
+\CommentTok{\#  x, x}
+\FunctionTok{length}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# x ∞ = max i |x i |, also called the max norm or the Chebyshev norm. The}
+\CommentTok{\# L ∞ norm is deﬁned by taking the limit in an L p norm, and we see that it}
+\CommentTok{\# is indeed max i |x i | by expressing it as}
+\NormalTok{L }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(p, }\AttributeTok{na.rm =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{L}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# x ∞ = lim x p = lim}
+\CommentTok{\# p→∞}
+
+
+\CommentTok{\# p→∞}
+\CommentTok{\# p 1}
+\CommentTok{\#|x i |}
+\CommentTok{\#  p}
+\CommentTok{\#i}
+
+\CommentTok{\# 1}
+\CommentTok{\# x i p p}
+\CommentTok{\# = m lim}
+\CommentTok{\#}
+\CommentTok{\# p→∞}
+\CommentTok{\# m}
+\CommentTok{\# i}
+\CommentTok{\# with m = max i |x i |. Because the quantity of which we are taking the p th}
+\CommentTok{\# root is bounded above by the number of elements in x and below by 1,}
+\CommentTok{\# that factor goes to 1 as p goes to ∞.}
+\NormalTok{m }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(p, }\AttributeTok{na.rm =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{m }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(m)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 15.7121
+\end{verbatim}
+
+\end{document}

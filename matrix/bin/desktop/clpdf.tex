@@ -1,0 +1,972 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={clpdf.r},
+  pdfauthor={denis},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{clpdf.r}
+\author{denis}
+\date{2021-07-12}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/usr/bin/r}
+
+\CommentTok{\# An L p norm is also called a p{-}norm, or 1{-}norm, 2{-}norm, or ∞{-}norm in those}
+\CommentTok{\# special cases.}
+\CommentTok{\# It is easy to see that, for any n{-}vector x, the L p norms have the relation{-}}
+\CommentTok{\#  ships}
+\CommentTok{\# (2.12)}
+\CommentTok{\# x ∞ ≤ x 2 ≤ x 1 .}
+\NormalTok{q }\OtherTok{\textless{}{-}} \DecValTok{19}
+\FunctionTok{pnorm}\NormalTok{(q, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{log.p =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{q }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(q)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 19.14988
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# More generally, for given x and for p ≥ 1, we see that x p is a nonincreasing}
+\CommentTok{\# function of p.}
+\CommentTok{\# We also have bounds that involve the number of elements in the vector:}
+\CommentTok{\#  √}
+\CommentTok{\# (2.13)}
+\CommentTok{\# x ∞ ≤ x 2 ≤ nx ∞}
+\NormalTok{p }\OtherTok{=} \DecValTok{16}
+\NormalTok{p }\SpecialCharTok{\textgreater{}} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(p) }\SpecialCharTok{+} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    [1]   15.7121   16.7121   17.7121   18.7121   19.7121   20.7121   21.7121
+##    [8]   22.7121   23.7121   24.7121   25.7121   26.7121   27.7121   28.7121
+##   [15]   29.7121   30.7121   31.7121   32.7121   33.7121   34.7121   35.7121
+##   [22]   36.7121   37.7121   38.7121   39.7121   40.7121   41.7121   42.7121
+##   [29]   43.7121   44.7121   45.7121   46.7121   47.7121   48.7121   49.7121
+##   [36]   50.7121   51.7121   52.7121   53.7121   54.7121   55.7121   56.7121
+##   [43]   57.7121   58.7121   59.7121   60.7121   61.7121   62.7121   63.7121
+##   [50]   64.7121   65.7121   66.7121   67.7121   68.7121   69.7121   70.7121
+##   [57]   71.7121   72.7121   73.7121   74.7121   75.7121   76.7121   77.7121
+##   [64]   78.7121   79.7121   80.7121   81.7121   82.7121   83.7121   84.7121
+##   [71]   85.7121   86.7121   87.7121   88.7121   89.7121   90.7121   91.7121
+##   [78]   92.7121   93.7121   94.7121   95.7121   96.7121   97.7121   98.7121
+##   [85]   99.7121  100.7121  101.7121  102.7121  103.7121  104.7121  105.7121
+##   [92]  106.7121  107.7121  108.7121  109.7121  110.7121  111.7121  112.7121
+##   [99]  113.7121  114.7121  115.7121  116.7121  117.7121  118.7121  119.7121
+##  [106]  120.7121  121.7121  122.7121  123.7121  124.7121  125.7121  126.7121
+##  [113]  127.7121  128.7121  129.7121  130.7121  131.7121  132.7121  133.7121
+##  [120]  134.7121  135.7121  136.7121  137.7121  138.7121  139.7121  140.7121
+##  [127]  141.7121  142.7121  143.7121  144.7121  145.7121  146.7121  147.7121
+##  [134]  148.7121  149.7121  150.7121  151.7121  152.7121  153.7121  154.7121
+##  [141]  155.7121  156.7121  157.7121  158.7121  159.7121  160.7121  161.7121
+##  [148]  162.7121  163.7121  164.7121  165.7121  166.7121  167.7121  168.7121
+##  [155]  169.7121  170.7121  171.7121  172.7121  173.7121  174.7121  175.7121
+##  [162]  176.7121  177.7121  178.7121  179.7121  180.7121  181.7121  182.7121
+##  [169]  183.7121  184.7121  185.7121  186.7121  187.7121  188.7121  189.7121
+##  [176]  190.7121  191.7121  192.7121  193.7121  194.7121  195.7121  196.7121
+##  [183]  197.7121  198.7121  199.7121  200.7121  201.7121  202.7121  203.7121
+##  [190]  204.7121  205.7121  206.7121  207.7121  208.7121  209.7121  210.7121
+##  [197]  211.7121  212.7121  213.7121  214.7121  215.7121  216.7121  217.7121
+##  [204]  218.7121  219.7121  220.7121  221.7121  222.7121  223.7121  224.7121
+##  [211]  225.7121  226.7121  227.7121  228.7121  229.7121  230.7121  231.7121
+##  [218]  232.7121  233.7121  234.7121  235.7121  236.7121  237.7121  238.7121
+##  [225]  239.7121  240.7121  241.7121  242.7121  243.7121  244.7121  245.7121
+##  [232]  246.7121  247.7121  248.7121  249.7121  250.7121  251.7121  252.7121
+##  [239]  253.7121  254.7121  255.7121  256.7121  257.7121  258.7121  259.7121
+##  [246]  260.7121  261.7121  262.7121  263.7121  264.7121  265.7121  266.7121
+##  [253]  267.7121  268.7121  269.7121  270.7121  271.7121  272.7121  273.7121
+##  [260]  274.7121  275.7121  276.7121  277.7121  278.7121  279.7121  280.7121
+##  [267]  281.7121  282.7121  283.7121  284.7121  285.7121  286.7121  287.7121
+##  [274]  288.7121  289.7121  290.7121  291.7121  292.7121  293.7121  294.7121
+##  [281]  295.7121  296.7121  297.7121  298.7121  299.7121  300.7121  301.7121
+##  [288]  302.7121  303.7121  304.7121  305.7121  306.7121  307.7121  308.7121
+##  [295]  309.7121  310.7121  311.7121  312.7121  313.7121  314.7121  315.7121
+##  [302]  316.7121  317.7121  318.7121  319.7121  320.7121  321.7121  322.7121
+##  [309]  323.7121  324.7121  325.7121  326.7121  327.7121  328.7121  329.7121
+##  [316]  330.7121  331.7121  332.7121  333.7121  334.7121  335.7121  336.7121
+##  [323]  337.7121  338.7121  339.7121  340.7121  341.7121  342.7121  343.7121
+##  [330]  344.7121  345.7121  346.7121  347.7121  348.7121  349.7121  350.7121
+##  [337]  351.7121  352.7121  353.7121  354.7121  355.7121  356.7121  357.7121
+##  [344]  358.7121  359.7121  360.7121  361.7121  362.7121  363.7121  364.7121
+##  [351]  365.7121  366.7121  367.7121  368.7121  369.7121  370.7121  371.7121
+##  [358]  372.7121  373.7121  374.7121  375.7121  376.7121  377.7121  378.7121
+##  [365]  379.7121  380.7121  381.7121  382.7121  383.7121  384.7121  385.7121
+##  [372]  386.7121  387.7121  388.7121  389.7121  390.7121  391.7121  392.7121
+##  [379]  393.7121  394.7121  395.7121  396.7121  397.7121  398.7121  399.7121
+##  [386]  400.7121  401.7121  402.7121  403.7121  404.7121  405.7121  406.7121
+##  [393]  407.7121  408.7121  409.7121  410.7121  411.7121  412.7121  413.7121
+##  [400]  414.7121  415.7121  416.7121  417.7121  418.7121  419.7121  420.7121
+##  [407]  421.7121  422.7121  423.7121  424.7121  425.7121  426.7121  427.7121
+##  [414]  428.7121  429.7121  430.7121  431.7121  432.7121  433.7121  434.7121
+##  [421]  435.7121  436.7121  437.7121  438.7121  439.7121  440.7121  441.7121
+##  [428]  442.7121  443.7121  444.7121  445.7121  446.7121  447.7121  448.7121
+##  [435]  449.7121  450.7121  451.7121  452.7121  453.7121  454.7121  455.7121
+##  [442]  456.7121  457.7121  458.7121  459.7121  460.7121  461.7121  462.7121
+##  [449]  463.7121  464.7121  465.7121  466.7121  467.7121  468.7121  469.7121
+##  [456]  470.7121  471.7121  472.7121  473.7121  474.7121  475.7121  476.7121
+##  [463]  477.7121  478.7121  479.7121  480.7121  481.7121  482.7121  483.7121
+##  [470]  484.7121  485.7121  486.7121  487.7121  488.7121  489.7121  490.7121
+##  [477]  491.7121  492.7121  493.7121  494.7121  495.7121  496.7121  497.7121
+##  [484]  498.7121  499.7121  500.7121  501.7121  502.7121  503.7121  504.7121
+##  [491]  505.7121  506.7121  507.7121  508.7121  509.7121  510.7121  511.7121
+##  [498]  512.7121  513.7121  514.7121  515.7121  516.7121  517.7121  518.7121
+##  [505]  519.7121  520.7121  521.7121  522.7121  523.7121  524.7121  525.7121
+##  [512]  526.7121  527.7121  528.7121  529.7121  530.7121  531.7121  532.7121
+##  [519]  533.7121  534.7121  535.7121  536.7121  537.7121  538.7121  539.7121
+##  [526]  540.7121  541.7121  542.7121  543.7121  544.7121  545.7121  546.7121
+##  [533]  547.7121  548.7121  549.7121  550.7121  551.7121  552.7121  553.7121
+##  [540]  554.7121  555.7121  556.7121  557.7121  558.7121  559.7121  560.7121
+##  [547]  561.7121  562.7121  563.7121  564.7121  565.7121  566.7121  567.7121
+##  [554]  568.7121  569.7121  570.7121  571.7121  572.7121  573.7121  574.7121
+##  [561]  575.7121  576.7121  577.7121  578.7121  579.7121  580.7121  581.7121
+##  [568]  582.7121  583.7121  584.7121  585.7121  586.7121  587.7121  588.7121
+##  [575]  589.7121  590.7121  591.7121  592.7121  593.7121  594.7121  595.7121
+##  [582]  596.7121  597.7121  598.7121  599.7121  600.7121  601.7121  602.7121
+##  [589]  603.7121  604.7121  605.7121  606.7121  607.7121  608.7121  609.7121
+##  [596]  610.7121  611.7121  612.7121  613.7121  614.7121  615.7121  616.7121
+##  [603]  617.7121  618.7121  619.7121  620.7121  621.7121  622.7121  623.7121
+##  [610]  624.7121  625.7121  626.7121  627.7121  628.7121  629.7121  630.7121
+##  [617]  631.7121  632.7121  633.7121  634.7121  635.7121  636.7121  637.7121
+##  [624]  638.7121  639.7121  640.7121  641.7121  642.7121  643.7121  644.7121
+##  [631]  645.7121  646.7121  647.7121  648.7121  649.7121  650.7121  651.7121
+##  [638]  652.7121  653.7121  654.7121  655.7121  656.7121  657.7121  658.7121
+##  [645]  659.7121  660.7121  661.7121  662.7121  663.7121  664.7121  665.7121
+##  [652]  666.7121  667.7121  668.7121  669.7121  670.7121  671.7121  672.7121
+##  [659]  673.7121  674.7121  675.7121  676.7121  677.7121  678.7121  679.7121
+##  [666]  680.7121  681.7121  682.7121  683.7121  684.7121  685.7121  686.7121
+##  [673]  687.7121  688.7121  689.7121  690.7121  691.7121  692.7121  693.7121
+##  [680]  694.7121  695.7121  696.7121  697.7121  698.7121  699.7121  700.7121
+##  [687]  701.7121  702.7121  703.7121  704.7121  705.7121  706.7121  707.7121
+##  [694]  708.7121  709.7121  710.7121  711.7121  712.7121  713.7121  714.7121
+##  [701]  715.7121  716.7121  717.7121  718.7121  719.7121  720.7121  721.7121
+##  [708]  722.7121  723.7121  724.7121  725.7121  726.7121  727.7121  728.7121
+##  [715]  729.7121  730.7121  731.7121  732.7121  733.7121  734.7121  735.7121
+##  [722]  736.7121  737.7121  738.7121  739.7121  740.7121  741.7121  742.7121
+##  [729]  743.7121  744.7121  745.7121  746.7121  747.7121  748.7121  749.7121
+##  [736]  750.7121  751.7121  752.7121  753.7121  754.7121  755.7121  756.7121
+##  [743]  757.7121  758.7121  759.7121  760.7121  761.7121  762.7121  763.7121
+##  [750]  764.7121  765.7121  766.7121  767.7121  768.7121  769.7121  770.7121
+##  [757]  771.7121  772.7121  773.7121  774.7121  775.7121  776.7121  777.7121
+##  [764]  778.7121  779.7121  780.7121  781.7121  782.7121  783.7121  784.7121
+##  [771]  785.7121  786.7121  787.7121  788.7121  789.7121  790.7121  791.7121
+##  [778]  792.7121  793.7121  794.7121  795.7121  796.7121  797.7121  798.7121
+##  [785]  799.7121  800.7121  801.7121  802.7121  803.7121  804.7121  805.7121
+##  [792]  806.7121  807.7121  808.7121  809.7121  810.7121  811.7121  812.7121
+##  [799]  813.7121  814.7121  815.7121  816.7121  817.7121  818.7121  819.7121
+##  [806]  820.7121  821.7121  822.7121  823.7121  824.7121  825.7121  826.7121
+##  [813]  827.7121  828.7121  829.7121  830.7121  831.7121  832.7121  833.7121
+##  [820]  834.7121  835.7121  836.7121  837.7121  838.7121  839.7121  840.7121
+##  [827]  841.7121  842.7121  843.7121  844.7121  845.7121  846.7121  847.7121
+##  [834]  848.7121  849.7121  850.7121  851.7121  852.7121  853.7121  854.7121
+##  [841]  855.7121  856.7121  857.7121  858.7121  859.7121  860.7121  861.7121
+##  [848]  862.7121  863.7121  864.7121  865.7121  866.7121  867.7121  868.7121
+##  [855]  869.7121  870.7121  871.7121  872.7121  873.7121  874.7121  875.7121
+##  [862]  876.7121  877.7121  878.7121  879.7121  880.7121  881.7121  882.7121
+##  [869]  883.7121  884.7121  885.7121  886.7121  887.7121  888.7121  889.7121
+##  [876]  890.7121  891.7121  892.7121  893.7121  894.7121  895.7121  896.7121
+##  [883]  897.7121  898.7121  899.7121  900.7121  901.7121  902.7121  903.7121
+##  [890]  904.7121  905.7121  906.7121  907.7121  908.7121  909.7121  910.7121
+##  [897]  911.7121  912.7121  913.7121  914.7121  915.7121  916.7121  917.7121
+##  [904]  918.7121  919.7121  920.7121  921.7121  922.7121  923.7121  924.7121
+##  [911]  925.7121  926.7121  927.7121  928.7121  929.7121  930.7121  931.7121
+##  [918]  932.7121  933.7121  934.7121  935.7121  936.7121  937.7121  938.7121
+##  [925]  939.7121  940.7121  941.7121  942.7121  943.7121  944.7121  945.7121
+##  [932]  946.7121  947.7121  948.7121  949.7121  950.7121  951.7121  952.7121
+##  [939]  953.7121  954.7121  955.7121  956.7121  957.7121  958.7121  959.7121
+##  [946]  960.7121  961.7121  962.7121  963.7121  964.7121  965.7121  966.7121
+##  [953]  967.7121  968.7121  969.7121  970.7121  971.7121  972.7121  973.7121
+##  [960]  974.7121  975.7121  976.7121  977.7121  978.7121  979.7121  980.7121
+##  [967]  981.7121  982.7121  983.7121  984.7121  985.7121  986.7121  987.7121
+##  [974]  988.7121  989.7121  990.7121  991.7121  992.7121  993.7121  994.7121
+##  [981]  995.7121  996.7121  997.7121  998.7121  999.7121 1000.7121 1001.7121
+##  [988] 1002.7121 1003.7121 1004.7121 1005.7121 1006.7121 1007.7121 1008.7121
+##  [995] 1009.7121 1010.7121 1011.7121 1012.7121 1013.7121 1014.7121
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The triangle inequality obviously holds}
+\CommentTok{\# for the L 1 and L ∞ norms. For the}
+
+\CommentTok{\# L 2 norm it can be seen by expanding (x i + y i ) 2 and then using the Cauchy{-}}
+\CommentTok{\#  Schwartz inequality (2.10) on page 16. Rather than approaching it that way,}
+\CommentTok{\# however, we will show below that the L 2 norm can be defined in terms of an}
+\CommentTok{\# inner product, and then we will establish the triangle inequality for any norm}
+\CommentTok{\# defined similarly by an inner product; see inequality (2.19). Showing that the}
+\CommentTok{\# triangle inequality holds for other L p norms is more diﬃcult; see Exercise 2}
+\CommentTok{\# .6.}
+\CommentTok{\# A generalization of the L p vector norm is the weighted L p vector norm}
+\CommentTok{\# defined by}
+\FunctionTok{trigamma}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.06449378
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Basis Norms}
+\CommentTok{\# If \{v 1 , . . . , v k \} is a basis for a vector space that includes a }
+\CommentTok{\# vector x with}
+\CommentTok{\# x = c 1 v 1 + · · · + c k v k , then}
+\FunctionTok{baseenv}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## <environment: base>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{variable.names}\NormalTok{(p, }\StringTok{"output"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (p }\ControlFlowTok{in}\NormalTok{ q}\SpecialCharTok{:}\DecValTok{999}\NormalTok{) \{}
+  \FunctionTok{c}\NormalTok{(p)}
+\NormalTok{\}}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 999
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# is a norm. It is straightforward to see that ρ(x) is a norm by checking the}
+\CommentTok{\# following three conditions:}
+\NormalTok{p }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 998.9735
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ρ(x) ≥ 0 and ρ(x) = 0 if and only if x = 0 because x = 0 if and only if}
+\CommentTok{\# c i = 0 for all i.}
+\ControlFlowTok{if}\NormalTok{ (p }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{) \{}
+   \ControlFlowTok{for}\NormalTok{ (p }\ControlFlowTok{in}\NormalTok{ q}\SpecialCharTok{:}\DecValTok{999} \SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(p)) \{}
+     \FunctionTok{c}\NormalTok{(p)}
+\NormalTok{   \}}
+\NormalTok{\}}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 998.9735
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ρ(ax) =}
+\CommentTok{\# i a c i}
+\CommentTok{\# i a c i}
+\CommentTok{\# If y = b 1 v 1 + · · · + b k v k , then}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{p }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  9.455979  4.041076 20.912945  4.041076 29.011968  4.041076
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The last inequality is just the triangle inequality for the L 2 norm for the}
+\CommentTok{\# vectors (c 1 , · · · , c k ) and (b 1 , · · · , b k )}
+\FunctionTok{trigamma}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.10516634 0.22132296 0.05127082 0.22132296 0.03389506 0.22132296
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# In Section 2.2.5, we will consider special forms of basis sets in which the}
+\CommentTok{\# norm in equation (2.16) is identically the L 2 norm. (This is called }
+\CommentTok{\# Parseval’s}
+\CommentTok{\# identity, equation (2.38).)}
+\NormalTok{p }\SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  9.455979  4.041076 20.912945  4.041076 29.011968  4.041076
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Equivalence of Norms}
+\CommentTok{\# There is an equivalence among any two norms over a formed linear space in}
+\CommentTok{\# the sense that if  ·  a and  ·  b are norms, then there are positive numbers r}
+\CommentTok{\# and s such that for any x in the space,}
+\CommentTok{\# r x b ≤ x a ≤ s x b .}
+\NormalTok{p }\SpecialCharTok{+} \FunctionTok{cos}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  9.160928  5.283662 20.408082  5.283662 30.154251  5.283662
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Expressions (2.13) and (2.14) are examples of this general equivalence for}
+\CommentTok{\# three L p norms.}
+\NormalTok{Lp }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(p, }\AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{"O"}\NormalTok{, }\StringTok{"I"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"M"}\NormalTok{, }\StringTok{"2"}\NormalTok{))}
+\NormalTok{Lp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                     type1 type2 type3 type4 type5 
+##  "10"   "5"  "20"   "5"  "30"   "5"   "O"   "I"   "F"   "M"   "2"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We can prove inequality (2.17) by using the norm defined in equal{-}}
+\CommentTok{\# son (2.16). We need only consider the case x = 0, because the inequality}
+\CommentTok{\# is obviously true if x = 0. Let  ·  a be any norm over a given formed linear}
+\CommentTok{\# space and let \{v 1 , . . . , v k \} be a basis for the space. Any x in the }
+\CommentTok{\# space has a}
+\CommentTok{\# representation in terms of the basis, x = c 1 v 1 + · · · + c k v k . Then}
+\NormalTok{eq }\OtherTok{\textless{}{-}}\NormalTok{ base}\SpecialCharTok{::}\FunctionTok{abs}\NormalTok{(p)}
+\NormalTok{eq}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10  5 20  5 30  5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Hence, with s̃ v i 2 a ) 2 , which must be positive, we have}
+\FunctionTok{postscriptFonts}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $serif
+## $family
+## [1] "Times"
+## 
+## $metrics
+## [1] "Times-Roman.afm"      "Times-Bold.afm"       "Times-Italic.afm"    
+## [4] "Times-BoldItalic.afm" "Symbol.afm"          
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $sans
+## $family
+## [1] "Helvetica"
+## 
+## $metrics
+## [1] "Helvetica.afm"             "Helvetica-Bold.afm"       
+## [3] "Helvetica-Oblique.afm"     "Helvetica-BoldOblique.afm"
+## [5] "Symbol.afm"               
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $mono
+## $family
+## [1] "Courier"
+## 
+## $metrics
+## [1] "Courier.afm"             "Courier-Bold.afm"       
+## [3] "Courier-Oblique.afm"     "Courier-BoldOblique.afm"
+## [5] "Symbol.afm"             
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $AvantGarde
+## $family
+## [1] "AvantGarde"
+## 
+## $metrics
+## [1] "agw_____.afm" "agd_____.afm" "agwo____.afm" "agdo____.afm" "Symbol.afm"  
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $Bookman
+## $family
+## [1] "Bookman"
+## 
+## $metrics
+## [1] "bkl_____.afm" "bkd_____.afm" "bkli____.afm" "bkdi____.afm" "Symbol.afm"  
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $Courier
+## $family
+## [1] "Courier"
+## 
+## $metrics
+## [1] "Courier.afm"             "Courier-Bold.afm"       
+## [3] "Courier-Oblique.afm"     "Courier-BoldOblique.afm"
+## [5] "Symbol.afm"             
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $Helvetica
+## $family
+## [1] "Helvetica"
+## 
+## $metrics
+## [1] "Helvetica.afm"             "Helvetica-Bold.afm"       
+## [3] "Helvetica-Oblique.afm"     "Helvetica-BoldOblique.afm"
+## [5] "Symbol.afm"               
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $`Helvetica-Narrow`
+## $family
+## [1] "Helvetica-Narrow"
+## 
+## $metrics
+## [1] "hvn_____.afm" "hvnb____.afm" "hvno____.afm" "hvnbo___.afm" "Symbol.afm"  
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $NewCenturySchoolbook
+## $family
+## [1] "NewCenturySchoolbook"
+## 
+## $metrics
+## [1] "ncr_____.afm" "ncb_____.afm" "nci_____.afm" "ncbi____.afm" "Symbol.afm"  
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $Palatino
+## $family
+## [1] "Palatino"
+## 
+## $metrics
+## [1] "por_____.afm" "pob_____.afm" "poi_____.afm" "pobi____.afm" "Symbol.afm"  
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $Times
+## $family
+## [1] "Times"
+## 
+## $metrics
+## [1] "Times-Roman.afm"      "Times-Bold.afm"       "Times-Italic.afm"    
+## [4] "Times-BoldItalic.afm" "Symbol.afm"          
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $URWGothic
+## $family
+## [1] "URWGothic"
+## 
+## $metrics
+## [1] "a010013l.afm" "a010015l.afm" "a010033l.afm" "a010035l.afm" "s050000l.afm"
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $URWBookman
+## $family
+## [1] "URWBookman"
+## 
+## $metrics
+## [1] "b018012l.afm" "b018015l.afm" "b018032l.afm" "b018035l.afm" "s050000l.afm"
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $NimbusMon
+## $family
+## [1] "NimbusMon"
+## 
+## $metrics
+## [1] "n022003l.afm" "n022004l.afm" "n022023l.afm" "n022024l.afm" "s050000l.afm"
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $NimbusSan
+## $family
+## [1] "NimbusSan"
+## 
+## $metrics
+## [1] "n019003l.afm" "n019004l.afm" "n019023l.afm" "n019024l.afm" "s050000l.afm"
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $URWHelvetica
+## $family
+## [1] "URWHelvetica"
+## 
+## $metrics
+## [1] "n019003l.afm" "n019004l.afm" "n019023l.afm" "n019024l.afm" "s050000l.afm"
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $NimbusSanCond
+## $family
+## [1] "NimbusSanCond"
+## 
+## $metrics
+## [1] "n019043l.afm" "n019044l.afm" "n019063l.afm" "n019064l.afm" "s050000l.afm"
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $CenturySch
+## $family
+## [1] "CenturySch"
+## 
+## $metrics
+## [1] "c059013l.afm" "c059016l.afm" "c059033l.afm" "c059036l.afm" "s050000l.afm"
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $URWPalladio
+## $family
+## [1] "URWPalladio"
+## 
+## $metrics
+## [1] "p052003l.afm" "p052004l.afm" "p052023l.afm" "p052024l.afm" "s050000l.afm"
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $NimbusRom
+## $family
+## [1] "NimbusRom"
+## 
+## $metrics
+## [1] "n021003l.afm" "n021004l.afm" "n021023l.afm" "n021024l.afm" "s050000l.afm"
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $URWTimes
+## $family
+## [1] "URWTimes"
+## 
+## $metrics
+## [1] "n021003l.afm" "n021004l.afm" "n021023l.afm" "n021024l.afm" "s050000l.afm"
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $ArialMT
+## $family
+## [1] "ArialMT"
+## 
+## $metrics
+## [1] "ArialMT.afm"            "ArialMT-Bold.afm"       "ArialMT-Italic.afm"    
+## [4] "ArialMT-BoldItalic.afm" "Symbol.afm"            
+## 
+## $encoding
+## [1] "default"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $ComputerModern
+## $family
+## [1] "ComputerModern"
+## 
+## $metrics
+## [1] "CM_regular_10.afm"      "CM_boldx_10.afm"        "CM_italic_10.afm"      
+## [4] "CM_boldx_italic_10.afm" "CM_symbol_10.afm"      
+## 
+## $encoding
+## [1] "TeXtext.enc"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $ComputerModernItalic
+## $family
+## [1] "ComputerModernItalic"
+## 
+## $metrics
+## [1] "CM_regular_10.afm" "CM_boldx_10.afm"   "cmti10.afm"       
+## [4] "cmbxti10.afm"      "CM_symbol_10.afm" 
+## 
+## $encoding
+## [1] "TeXtext.enc"
+## 
+## attr(,"class")
+## [1] "Type1Font"
+## 
+## $Japan1
+## $family
+## [1] "HeiseiKakuGo-W5"
+## 
+## $metrics
+## [1] ""           ""           ""           ""           "Symbol.afm"
+## 
+## $cmap
+## [1] "EUC-H"
+## 
+## $cmapEncoding
+## [1] "EUC-JP"
+## 
+## $pdfresource
+## [1] ""
+## 
+## attr(,"class")
+## [1] "CIDFont"
+## 
+## $Japan1HeiMin
+## $family
+## [1] "HeiseiMin-W3"
+## 
+## $metrics
+## [1] ""           ""           ""           ""           "Symbol.afm"
+## 
+## $cmap
+## [1] "EUC-H"
+## 
+## $cmapEncoding
+## [1] "EUC-JP"
+## 
+## $pdfresource
+## [1] ""
+## 
+## attr(,"class")
+## [1] "CIDFont"
+## 
+## $Japan1GothicBBB
+## $family
+## [1] "GothicBBB-Medium"
+## 
+## $metrics
+## [1] ""           ""           ""           ""           "Symbol.afm"
+## 
+## $cmap
+## [1] "EUC-H"
+## 
+## $cmapEncoding
+## [1] "EUC-JP"
+## 
+## $pdfresource
+## [1] ""
+## 
+## attr(,"class")
+## [1] "CIDFont"
+## 
+## $Japan1Ryumin
+## $family
+## [1] "Ryumin-Light"
+## 
+## $metrics
+## [1] ""           ""           ""           ""           "Symbol.afm"
+## 
+## $cmap
+## [1] "EUC-H"
+## 
+## $cmapEncoding
+## [1] "EUC-JP"
+## 
+## $pdfresource
+## [1] ""
+## 
+## attr(,"class")
+## [1] "CIDFont"
+## 
+## $Korea1
+## $family
+## [1] "Baekmuk-Batang"
+## 
+## $metrics
+## [1] ""           ""           ""           ""           "Symbol.afm"
+## 
+## $cmap
+## [1] "KSCms-UHC-H"
+## 
+## $cmapEncoding
+## [1] "CP949"
+## 
+## $pdfresource
+## [1] ""
+## 
+## attr(,"class")
+## [1] "CIDFont"
+## 
+## $Korea1deb
+## $family
+## [1] "Batang-Regular"
+## 
+## $metrics
+## [1] ""           ""           ""           ""           "Symbol.afm"
+## 
+## $cmap
+## [1] "KSCms-UHC-H"
+## 
+## $cmapEncoding
+## [1] "CP949"
+## 
+## $pdfresource
+## [1] ""
+## 
+## attr(,"class")
+## [1] "CIDFont"
+## 
+## $CNS1
+## $family
+## [1] "MOESung-Regular"
+## 
+## $metrics
+## [1] ""           ""           ""           ""           "Symbol.afm"
+## 
+## $cmap
+## [1] "B5pc-H"
+## 
+## $cmapEncoding
+## [1] "CP950"
+## 
+## $pdfresource
+## [1] ""
+## 
+## attr(,"class")
+## [1] "CIDFont"
+## 
+## $GB1
+## $family
+## [1] "BousungEG-Light-GB"
+## 
+## $metrics
+## [1] ""           ""           ""           ""           "Symbol.afm"
+## 
+## $cmap
+## [1] "GBK-EUC-H"
+## 
+## $cmapEncoding
+## [1] "GBK"
+## 
+## $pdfresource
+## [1] ""
+## 
+## attr(,"class")
+## [1] "CIDFont"
+\end{verbatim}
+
+\end{document}
