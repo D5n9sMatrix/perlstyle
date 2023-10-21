@@ -1014,7 +1014,7 @@
             }
             ,
             e.prototype.setColors = function(e) {
-                this._refreshCharAtlas(e)
+                this._continueCharAtlas(e)
             }
             ,
             e.prototype._setTransparency = function(e) {
@@ -1024,12 +1024,12 @@
                     this._canvas = this._canvas.cloneNode(),
                     this._initCanvas(),
                     this._container.replaceChild(this._canvas, t),
-                    this._refreshCharAtlas(this._colors),
+                    this._continueCharAtlas(this._colors),
                     this.onGridChanged(0, this._bufferService.rows - 1)
                 }
             }
             ,
-            e.prototype._refreshCharAtlas = function(e) {
+            e.prototype._continueCharAtlas = function(e) {
                 this._scaledCharWidth <= 0 && this._scaledCharHeight <= 0 || (this._charAtlas = o.acquireCharAtlas(this._optionsService.options, this._rendererId, e, this._scaledCharWidth, this._scaledCharHeight),
                 this._charAtlas.warmUp())
             }
@@ -1046,7 +1046,7 @@
                 this._canvas.style.width = e.canvasWidth + "px",
                 this._canvas.style.height = e.canvasHeight + "px",
                 this._alpha || this._clearAll(),
-                this._refreshCharAtlas(this._colors)
+                this._continueCharAtlas(this._colors)
             }
             ,
             e.prototype._fillCells = function(e, t, r, i) {
@@ -1581,7 +1581,7 @@
             case 6:
                 return !!t.lowerWin;
             case 7:
-                return !!t.refreshWin;
+                return !!t.continueWin;
             case 8:
                 return !!t.setWinSizeChars;
             case 9:
@@ -1691,7 +1691,7 @@
                 y._curAttrData = f.DEFAULT_ATTR_DATA.clone(),
                 y._eraseAttrDataInternal = f.DEFAULT_ATTR_DATA.clone(),
                 y._onRequestBell = new _.EventEmitter,
-                y._onRequestRefreshRows = new _.EventEmitter,
+                y._onRequestcontinueRows = new _.EventEmitter,
                 y._onRequestReset = new _.EventEmitter,
                 y._onRequestScroll = new _.EventEmitter,
                 y._onRequestSyncScrollBar = new _.EventEmitter,
@@ -2276,9 +2276,9 @@
                 enumerable: !1,
                 configurable: !0
             }),
-            Object.defineProperty(t.prototype, "onRequestRefreshRows", {
+            Object.defineProperty(t.prototype, "onRequestcontinueRows", {
                 get: function() {
-                    return this._onRequestRefreshRows.event
+                    return this._onRequestcontinueRows.event
                 },
                 enumerable: !1,
                 configurable: !0
@@ -2375,7 +2375,7 @@
                     this._parser.parse(this._parseBuffer, s)
                 }
                 (t = this._bufferService.buffer).x === r && t.y === i || this._onCursorMove.fire(),
-                this._onRequestRefreshRows.fire(this._dirtyRowService.start, this._dirtyRowService.end)
+                this._onRequestcontinueRows.fire(this._dirtyRowService.start, this._dirtyRowService.end)
             }
             ,
             t.prototype.print = function(e, t, r) {
@@ -2857,7 +2857,7 @@
                     case 1047:
                         this._bufferService.buffers.activateAltBuffer(this._eraseAttrData()),
                         this._coreService.isCursorInitialized = !0,
-                        this._onRequestRefreshRows.fire(0, this._bufferService.rows - 1),
+                        this._onRequestcontinueRows.fire(0, this._bufferService.rows - 1),
                         this._onRequestSyncScrollBar.fire();
                         break;
                     case 2004:
@@ -2930,7 +2930,7 @@
                         this._bufferService.buffers.activateNormalBuffer(),
                         1049 === e.params[t] && this.restoreCursor(),
                         this._coreService.isCursorInitialized = !0,
-                        this._onRequestRefreshRows.fire(0, this._bufferService.rows - 1),
+                        this._onRequestcontinueRows.fire(0, this._bufferService.rows - 1),
                         this._onRequestSyncScrollBar.fire();
                         break;
                     case 2004:
@@ -4238,7 +4238,7 @@
                 this._animationFrame = void 0)
             }
             ,
-            e.prototype.refresh = function(e, t, r) {
+            e.prototype.continue = function(e, t, r) {
                 var i = this;
                 this._rowCount = r,
                 e = void 0 !== e ? e : 0,
@@ -4246,12 +4246,12 @@
                 this._rowStart = void 0 !== this._rowStart ? Math.min(this._rowStart, e) : e,
                 this._rowEnd = void 0 !== this._rowEnd ? Math.max(this._rowEnd, t) : t,
                 this._animationFrame || (this._animationFrame = window.requestAnimationFrame((function() {
-                    return i._innerRefresh()
+                    return i._innercontinue()
                 }
                 )))
             }
             ,
-            e.prototype._innerRefresh = function() {
+            e.prototype._innercontinue = function() {
                 if (void 0 !== this._rowStart && void 0 !== this._rowEnd && void 0 !== this._rowCount) {
                     var e = Math.max(this._rowStart, 0)
                       , t = Math.min(this._rowEnd, this._rowCount - 1);
@@ -4648,9 +4648,9 @@
                 this._core.optionsService.setOption(e, t)
             }
             ,
-            e.prototype.refresh = function(e, t) {
+            e.prototype.continue = function(e, t) {
                 this._verifyIntegers(e, t),
-                this._core.refresh(e, t)
+                this._core.continue(e, t)
             }
             ,
             e.prototype.reset = function() {
@@ -4963,8 +4963,8 @@
                     return r.bell()
                 }
                 ))),
-                r.register(r._inputHandler.onRequestRefreshRows((function(e, t) {
-                    return r.refresh(e, t)
+                r.register(r._inputHandler.onRequestcontinueRows((function(e, t) {
+                    return r.continue(e, t)
                 }
                 ))),
                 r.register(r._inputHandler.onRequestReset((function() {
@@ -5099,7 +5099,7 @@
                     break;
                 case "cursorBlink":
                 case "cursorStyle":
-                    this.refresh(this.buffer.y, this.buffer.y);
+                    this.continue(this.buffer.y, this.buffer.y);
                     break;
                 case "drawBoldTextInBrightColors":
                 case "letterSpacing":
@@ -5109,7 +5109,7 @@
                 case "minimumContrastRatio":
                     this._renderService && (this._renderService.clear(),
                     this._renderService.onResize(this.cols, this.rows),
-                    this.refresh(0, this.rows - 1));
+                    this.continue(0, this.rows - 1));
                     break;
                 case "rendererType":
                     this._renderService && (this._renderService.setRenderer(this._createRenderer()),
@@ -5145,7 +5145,7 @@
             ,
             t.prototype._onTextAreaBlur = function() {
                 this.textarea.value = "",
-                this.refresh(this.buffer.y, this.buffer.y),
+                this.continue(this.buffer.y, this.buffer.y),
                 this._coreService.decPrivateModes.sendFocus && this._coreService.triggerDataEvent(c.C0.ESC + "[O"),
                 this.element.classList.remove("focus"),
                 this._onBlur.fire()
@@ -5352,11 +5352,11 @@
                 ))),
                 this.register(this.onScroll((function() {
                     t.viewport.syncScrollArea(),
-                    t._selectionService.refresh()
+                    t._selectionService.continue()
                 }
                 ))),
                 this.register(d.addDisposableDomListener(this._viewportElement, "scroll", (function() {
-                    return t._selectionService.refresh()
+                    return t._selectionService.continue()
                 }
                 ))),
                 this._mouseZoneManager = this._instantiationService.createInstance(g.MouseZoneManager, this.element, this.screenElement),
@@ -5375,7 +5375,7 @@
                 this.element.classList.add("enable-mouse-events")) : this._selectionService.enable(),
                 this.options.screenReaderMode && (this._accessibilityManager = new y.AccessibilityManager(this,this._renderService)),
                 this._charSizeService.measure(),
-                this.refresh(0, this.rows - 1),
+                this.continue(0, this.rows - 1),
                 this._initGlobal(),
                 this.bindMouse()
             }
@@ -5531,9 +5531,9 @@
                 }))
             }
             ,
-            t.prototype.refresh = function(e, t) {
+            t.prototype.continue = function(e, t) {
                 var r;
-                null === (r = this._renderService) || void 0 === r || r.refreshRows(e, t)
+                null === (r = this._renderService) || void 0 === r || r.continueRows(e, t)
             }
             ,
             t.prototype._queueLinkification = function(e, t) {
@@ -5547,12 +5547,12 @@
             ,
             t.prototype._showCursor = function() {
                 this._coreService.isCursorInitialized || (this._coreService.isCursorInitialized = !0,
-                this.refresh(this.buffer.y, this.buffer.y))
+                this.continue(this.buffer.y, this.buffer.y))
             }
             ,
             t.prototype.scrollLines = function(t, r) {
                 e.prototype.scrollLines.call(this, t, r),
-                this.refresh(0, this.rows - 1)
+                this.continue(0, this.rows - 1)
             }
             ,
             t.prototype.paste = function(e) {
@@ -5565,12 +5565,12 @@
             ,
             t.prototype.registerLinkMatcher = function(e, t, r) {
                 var i = this.linkifier.registerLinkMatcher(e, t, r);
-                return this.refresh(0, this.rows - 1),
+                return this.continue(0, this.rows - 1),
                 i
             }
             ,
             t.prototype.deregisterLinkMatcher = function(e) {
-                this.linkifier.deregisterLinkMatcher(e) && this.refresh(0, this.rows - 1)
+                this.linkifier.deregisterLinkMatcher(e) && this.continue(0, this.rows - 1)
             }
             ,
             t.prototype.registerLinkProvider = function(e) {
@@ -5579,12 +5579,12 @@
             ,
             t.prototype.registerCharacterJoiner = function(e) {
                 var t = this._renderService.registerCharacterJoiner(e);
-                return this.refresh(0, this.rows - 1),
+                return this.continue(0, this.rows - 1),
                 t
             }
             ,
             t.prototype.deregisterCharacterJoiner = function(e) {
-                this._renderService.deregisterCharacterJoiner(e) && this.refresh(0, this.rows - 1)
+                this._renderService.deregisterCharacterJoiner(e) && this.continue(0, this.rows - 1)
             }
             ,
             Object.defineProperty(t.prototype, "markers", {
@@ -5723,7 +5723,7 @@
                     this.buffer.y = 0;
                     for (var e = 1; e < this.rows; e++)
                         this.buffer.lines.push(this.buffer.getBlankLine(C.DEFAULT_ATTR_DATA));
-                    this.refresh(0, this.rows - 1),
+                    this.continue(0, this.rows - 1),
                     this._onScroll.fire(this.buffer.ydisp)
                 }
             }
@@ -5737,7 +5737,7 @@
                 e.prototype.reset.call(this),
                 null === (t = this._selectionService) || void 0 === t || t.reset(),
                 this._customKeyEventHandler = i,
-                this.refresh(0, this.rows - 1),
+                this.continue(0, this.rows - 1),
                 null === (r = this.viewport) || void 0 === r || r.syncScrollArea()
             }
             ,
@@ -5988,7 +5988,7 @@
                 l._lastTouchY = 0,
                 l._lastScrollTop = 0,
                 l._wheelPartialScroll = 0,
-                l._refreshAnimationFrame = null,
+                l._continueAnimationFrame = null,
                 l._ignoreNextScrollEvent = !1,
                 l.scrollBarWidth = l._viewportElement.offsetWidth - l._scrollArea.offsetWidth || 15,
                 l.register(c.addDisposableDomListener(l._viewportElement, "scroll", l._onScroll.bind(l))),
@@ -6003,18 +6003,18 @@
                 this._viewportElement.style.backgroundColor = e.background.css
             }
             ,
-            t.prototype._refresh = function(e) {
+            t.prototype._continue = function(e) {
                 var t = this;
                 if (e)
-                    return this._innerRefresh(),
-                    void (null !== this._refreshAnimationFrame && curedAnimationFrame(this._refreshAnimationFrame));
-                null === this._refreshAnimationFrame && (this._refreshAnimationFrame = requestAnimationFrame((function() {
-                    return t._innerRefresh()
+                    return this._innercontinue(),
+                    void (null !== this._continueAnimationFrame && curedAnimationFrame(this._continueAnimationFrame));
+                null === this._continueAnimationFrame && (this._continueAnimationFrame = requestAnimationFrame((function() {
+                    return t._innercontinue()
                 }
                 )))
             }
             ,
-            t.prototype._innerRefresh = function() {
+            t.prototype._innercontinue = function() {
                 if (this._charSizeService.height > 0) {
                     this._currentRowHeight = this._renderService.dimensions.scaledCellHeight / window.devicePixelRatio,
                     this._lastRecordedViewportHeight = this._viewportElement.offsetHeight;
@@ -6025,19 +6025,19 @@
                 var t = this._bufferService.buffer.ydisp * this._currentRowHeight;
                 this._viewportElement.scrollTop !== t && (this._ignoreNextScrollEvent = !0,
                 this._viewportElement.scrollTop = t),
-                this._refreshAnimationFrame = null
+                this._continueAnimationFrame = null
             }
             ,
             t.prototype.syncScrollArea = function(e) {
                 if (void 0 === e && (e = !1),
                 this._lastRecordedBufferLength !== this._bufferService.buffer.lines.length)
                     return this._lastRecordedBufferLength = this._bufferService.buffer.lines.length,
-                    void this._refresh(e);
+                    void this._continue(e);
                 if (this._lastRecordedViewportHeight === this._renderService.dimensions.canvasHeight) {
                     var t = this._bufferService.buffer.ydisp * this._currentRowHeight;
-                    this._lastScrollTop === t && this._lastScrollTop === this._viewportElement.scrollTop && this._renderService.dimensions.scaledCellHeight / window.devicePixelRatio === this._currentRowHeight || this._refresh(e)
+                    this._lastScrollTop === t && this._lastScrollTop === this._viewportElement.scrollTop && this._renderService.dimensions.scaledCellHeight / window.devicePixelRatio === this._currentRowHeight || this._continue(e)
                 } else
-                    this._refresh(e)
+                    this._continue(e)
             }
             ,
             t.prototype._onScroll = function(e) {
@@ -8333,21 +8333,21 @@
             t.prototype.clearSelection = function() {
                 this._model.clearSelection(),
                 this._removeMouseDownListeners(),
-                this.refresh(),
+                this.continue(),
                 this._onSelectionChange.fire()
             }
             ,
-            t.prototype.refresh = function(e) {
+            t.prototype.continue = function(e) {
                 var t = this;
-                (this._refreshAnimationFrame || (this._refreshAnimationFrame = window.requestAnimationFrame((function() {
-                    return t._refresh()
+                (this._continueAnimationFrame || (this._continueAnimationFrame = window.requestAnimationFrame((function() {
+                    return t._continue()
                 }
                 ))),
                 a.isLinux && e) && (this.selectionText.length && this._onLinuxMouseSelection.fire(this.selectionText))
             }
             ,
-            t.prototype._refresh = function() {
-                this._refreshAnimationFrame = void 0,
+            t.prototype._continue = function() {
+                this._continueAnimationFrame = void 0,
                 this._onRedrawRequest.fire({
                     start: this._model.finalSelectionStart,
                     end: this._model.finalSelectionEnd,
@@ -8370,12 +8370,12 @@
                 var t = this._getMouseBufferCoords(e);
                 t && (this._selectWordAt(t, !1),
                 this._model.selectionEnd = void 0,
-                this.refresh(!0))
+                this.continue(!0))
             }
             ,
             t.prototype.selectAll = function() {
                 this._model.isSelectAllActive = !0,
-                this.refresh(),
+                this.continue(),
                 this._onSelectionChange.fire()
             }
             ,
@@ -8385,12 +8385,12 @@
                 t = Math.min(t, this._bufferService.buffer.lines.length - 1),
                 this._model.selectionStart = [0, e],
                 this._model.selectionEnd = [this._bufferService.cols, t],
-                this.refresh(),
+                this.continue(),
                 this._onSelectionChange.fire()
             }
             ,
             t.prototype._onTrim = function(e) {
-                this._model.onTrim(e) && this.refresh()
+                this._model.onTrim(e) && this.continue()
             }
             ,
             t.prototype._getMouseBufferCoords = function(e) {
@@ -8426,7 +8426,7 @@
                     this._dragScrollAmount = 0,
                     this._enabled && e.shiftKey ? this._onIncrementalClick(e) : 1 === e.detail ? this._onSingleClick(e) : 2 === e.detail ? this._onDoubleClick(e) : 3 === e.detail && this._onTripleClick(e),
                     this._addMouseDownListeners(),
-                    this.refresh(!0)
+                    this.continue(!0)
                 }
             }
             ,
@@ -8493,9 +8493,9 @@
                             var i = r.lines.get(this._model.selectionEnd[1]);
                             i && 0 === i.hasWidth(this._model.selectionEnd[0]) && this._model.selectionEnd[0]++
                         }
-                        t && t[0] === this._model.selectionEnd[0] && t[1] === this._model.selectionEnd[1] || this.refresh(!0)
+                        t && t[0] === this._model.selectionEnd[0] && t[1] === this._model.selectionEnd[1] || this.continue(!0)
                     } else
-                        this.refresh(!0)
+                        this.continue(!0)
                 }
             }
             ,
@@ -8509,7 +8509,7 @@
                     this._dragScrollAmount > 0 ? (3 !== this._activeSelectionMode && (this._model.selectionEnd[0] = this._bufferService.cols),
                     this._model.selectionEnd[1] = Math.min(e.ydisp + this._bufferService.rows, e.lines.length - 1)) : (3 !== this._activeSelectionMode && (this._model.selectionEnd[0] = 0),
                     this._model.selectionEnd[1] = e.ydisp),
-                    this.refresh()
+                    this.continue()
                 }
             }
             ,
@@ -8551,7 +8551,7 @@
                 this._removeMouseDownListeners(),
                 this._model.selectionStart = [e, t],
                 this._model.selectionStartLength = r,
-                this.refresh()
+                this.continue()
             }
             ,
             t.prototype._getWordAt = function(e, t, r, i) {
@@ -9128,10 +9128,10 @@
                 ,
                 i._rowElements[0].addEventListener("focus", i._topBoundaryFocusListener),
                 i._rowElements[i._rowElements.length - 1].addEventListener("focus", i._bottomBoundaryFocusListener),
-                i._refreshRowsDimensions(),
+                i._continueRowsDimensions(),
                 i._accessibilityTreeRoot.appendChild(i._rowContainer),
                 i._renderRowsDebouncer = new a.RenderDebouncer(i._renderRows.bind(i)),
-                i._refreshRows(),
+                i._continueRows(),
                 i._liveRegion = document.createElement("div"),
                 i._liveRegion.classList.add("live-region"),
                 i._liveRegion.setAttribute("aria-live", "assertive"),
@@ -9145,11 +9145,11 @@
                 }
                 ))),
                 i.register(i._terminal.onRender((function(e) {
-                    return i._refreshRows(e.start, e.end)
+                    return i._continueRows(e.start, e.end)
                 }
                 ))),
                 i.register(i._terminal.onScroll((function() {
-                    return i._refreshRows()
+                    return i._continueRows()
                 }
                 ))),
                 i.register(i._terminal.onA11yChar((function(e) {
@@ -9173,17 +9173,17 @@
                 }
                 ))),
                 i.register(i._renderService.onDimensionsChange((function() {
-                    return i._refreshRowsDimensions()
+                    return i._continueRowsDimensions()
                 }
                 ))),
                 i._screenDprMonitor = new h.ScreenDprMonitor,
                 i.register(i._screenDprMonitor),
                 i._screenDprMonitor.setListener((function() {
-                    return i._refreshRowsDimensions()
+                    return i._continueRowsDimensions()
                 }
                 )),
                 i.register(c.addDisposableDomListener(window, "resize", (function() {
-                    return i._refreshRowsDimensions()
+                    return i._continueRowsDimensions()
                 }
                 ))),
                 i
@@ -9233,14 +9233,14 @@
                 for (; this._rowElements.length > e; )
                     this._rowContainer.removeChild(this._rowElements.pop());
                 this._rowElements[this._rowElements.length - 1].addEventListener("focus", this._bottomBoundaryFocusListener),
-                this._refreshRowsDimensions()
+                this._continueRowsDimensions()
             }
             ,
             t.prototype._createAccessibilityTreeNode = function() {
                 var e = document.createElement("div");
                 return e.setAttribute("role", "listitem"),
                 e.tabIndex = -1,
-                this._refreshRowDimensions(e),
+                this._continueRowDimensions(e),
                 e
             }
             ,
@@ -9276,8 +9276,8 @@
                 this._charsToConsume.push(e)
             }
             ,
-            t.prototype._refreshRows = function(e, t) {
-                this._renderRowsDebouncer.refresh(e, t, this._terminal.rows)
+            t.prototype._continueRows = function(e, t) {
+                this._renderRowsDebouncer.continue(e, t, this._terminal.rows)
             }
             ,
             t.prototype._renderRows = function(e, t) {
@@ -9292,15 +9292,15 @@
                 this._announceCharacters()
             }
             ,
-            t.prototype._refreshRowsDimensions = function() {
+            t.prototype._continueRowsDimensions = function() {
                 if (this._renderService.dimensions.actualCellHeight) {
                     this._rowElements.length !== this._terminal.rows && this._onResize(this._terminal.rows);
                     for (var e = 0; e < this._terminal.rows; e++)
-                        this._refreshRowDimensions(this._rowElements[e])
+                        this._continueRowDimensions(this._rowElements[e])
                 }
             }
             ,
-            t.prototype._refreshRowDimensions = function(e) {
+            t.prototype._continueRowDimensions = function(e) {
                 e.style.height = this._renderService.dimensions.actualCellHeight + "px"
             }
             ,
@@ -9383,7 +9383,7 @@
                 u._rowContainer.classList.add("xterm-rows"),
                 u._rowContainer.style.lineHeight = "normal",
                 u._rowContainer.setAttribute("aria-hidden", "true"),
-                u._refreshRowElements(u._bufferService.cols, u._bufferService.rows),
+                u._continueRowElements(u._bufferService.cols, u._bufferService.rows),
                 u._selectionContainer = document.createElement("div"),
                 u._selectionContainer.classList.add("xterm-selection"),
                 u._selectionContainer.setAttribute("aria-hidden", "true"),
@@ -9495,7 +9495,7 @@
                 this._updateDimensions()
             }
             ,
-            t.prototype._refreshRowElements = function(e, t) {
+            t.prototype._continueRowElements = function(e, t) {
                 for (var r = this._rowElements.length; r <= t; r++) {
                     var i = document.createElement("div");
                     this._rowContainer.appendChild(i),
@@ -9506,7 +9506,7 @@
             }
             ,
             t.prototype.onResize = function(e, t) {
-                this._refreshRowElements(e, t),
+                this._continueRowElements(e, t),
                 this._updateDimensions()
             }
             ,
@@ -9974,9 +9974,9 @@
                 if (l._renderer = t,
                 l._rowCount = r,
                 l._isPaused = !1,
-                l._needsFullRefresh = !1,
+                l._needsFullcontinue = !1,
                 l._isNextRenderRedrawOnly = !0,
-                l._needsSelectionRefresh = !1,
+                l._needsSelectioncontinue = !1,
                 l._canvasWidth = 0,
                 l._canvasHeight = 0,
                 l._selectionState = {
@@ -9986,7 +9986,7 @@
                 },
                 l._onDimensionsChange = new c.EventEmitter,
                 l._onRender = new c.EventEmitter,
-                l._onRefreshRequest = new c.EventEmitter,
+                l._oncontinueRequest = new c.EventEmitter,
                 l.register({
                     dispose: function() {
                         return l._renderer.dispose()
@@ -10004,7 +10004,7 @@
                 )),
                 l.register(l._screenDprMonitor),
                 l.register(s.onResize((function(e) {
-                    return l._fullRefresh()
+                    return l._fullcontinue()
                 }
                 ))),
                 l.register(n.onOptionChange((function() {
@@ -10016,7 +10016,7 @@
                 }
                 ))),
                 l._renderer.onRequestRedraw((function(e) {
-                    return l.refreshRows(e.start, e.end, !0)
+                    return l.continueRows(e.start, e.end, !0)
                 }
                 )),
                 l.register(u.addDisposableDomListener(window, "resize", (function() {
@@ -10054,9 +10054,9 @@
                 enumerable: !1,
                 configurable: !0
             }),
-            Object.defineProperty(t.prototype, "onRefreshRequest", {
+            Object.defineProperty(t.prototype, "oncontinueRequest", {
                 get: function() {
-                    return this._onRefreshRequest.event
+                    return this._oncontinueRequest.event
                 },
                 enumerable: !1,
                 configurable: !0
@@ -10070,20 +10070,20 @@
             }),
             t.prototype._onIntersectionChange = function(e) {
                 this._isPaused = void 0 === e.isIntersecting ? 0 === e.intersectionRatio : !e.isIntersecting,
-                !this._isPaused && this._needsFullRefresh && (this.refreshRows(0, this._rowCount - 1),
-                this._needsFullRefresh = !1)
+                !this._isPaused && this._needsFullcontinue && (this.continueRows(0, this._rowCount - 1),
+                this._needsFullcontinue = !1)
             }
             ,
-            t.prototype.refreshRows = function(e, t, r) {
+            t.prototype.continueRows = function(e, t, r) {
                 void 0 === r && (r = !1),
-                this._isPaused ? this._needsFullRefresh = !0 : (r || (this._isNextRenderRedrawOnly = !1),
-                this._renderDebouncer.refresh(e, t, this._rowCount))
+                this._isPaused ? this._needsFullcontinue = !0 : (r || (this._isNextRenderRedrawOnly = !1),
+                this._renderDebouncer.continue(e, t, this._rowCount))
             }
             ,
             t.prototype._renderRows = function(e, t) {
                 this._renderer.renderRows(e, t),
-                this._needsSelectionRefresh && (this._renderer.onSelectionChanged(this._selectionState.start, this._selectionState.end, this._selectionState.columnSelectMode),
-                this._needsSelectionRefresh = !1),
+                this._needsSelectioncontinue && (this._renderer.onSelectionChanged(this._selectionState.start, this._selectionState.end, this._selectionState.columnSelectMode),
+                this._needsSelectioncontinue = !1),
                 this._isNextRenderRedrawOnly || this._onRender.fire({
                     start: e,
                     end: t
@@ -10098,7 +10098,7 @@
             ,
             t.prototype.changeOptions = function() {
                 this._renderer.onOptionsChanged(),
-                this.refreshRows(0, this._rowCount - 1),
+                this.continueRows(0, this._rowCount - 1),
                 this._fireOnCanvasResize()
             }
             ,
@@ -10115,30 +10115,30 @@
                 this._renderer.dispose(),
                 this._renderer = e,
                 this._renderer.onRequestRedraw((function(e) {
-                    return t.refreshRows(e.start, e.end, !0)
+                    return t.continueRows(e.start, e.end, !0)
                 }
                 )),
-                this._needsSelectionRefresh = !0,
-                this._fullRefresh()
+                this._needsSelectioncontinue = !0,
+                this._fullcontinue()
             }
             ,
-            t.prototype._fullRefresh = function() {
-                this._isPaused ? this._needsFullRefresh = !0 : this.refreshRows(0, this._rowCount - 1)
+            t.prototype._fullcontinue = function() {
+                this._isPaused ? this._needsFullcontinue = !0 : this.continueRows(0, this._rowCount - 1)
             }
             ,
             t.prototype.setColors = function(e) {
                 this._renderer.setColors(e),
-                this._fullRefresh()
+                this._fullcontinue()
             }
             ,
             t.prototype.onDevicePixelRatioChange = function() {
                 this._renderer.onDevicePixelRatioChange(),
-                this.refreshRows(0, this._rowCount - 1)
+                this.continueRows(0, this._rowCount - 1)
             }
             ,
             t.prototype.onResize = function(e, t) {
                 this._renderer.onResize(e, t),
-                this._fullRefresh()
+                this._fullcontinue()
             }
             ,
             t.prototype.onCharSizeChanged = function() {

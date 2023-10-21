@@ -2239,7 +2239,7 @@ define("ace/keyboard/vim", ["require", "exports", "module", "ace/range", "ace/li
             }
         }
         ,
-        this.refresh = function() {
+        this.continue = function() {
             return this.ace.resize(!0)
         }
         ,

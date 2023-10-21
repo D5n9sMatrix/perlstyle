@@ -1,9 +1,9 @@
 import { Repository } from '../../../models/repository'
 
 /**
- * Refresh repository indicators every 15 minutes.
+ * continue repository indicators every 15 minutes.
  */
-const RefreshInterval = 15 * 60 * 1000
+const continueInterval = 15 * 60 * 1000
 
 /**
  * An upper bound to the skew that should be applied to the fetch interval to
@@ -18,15 +18,15 @@ const skew = Math.ceil(Math.random() * SkewUpperBound)
 
 export class RepositoryIndicatorUpdater {
   private running = false
-  private refreshTimeoutId: number | null = null
+  private continueTimeoutId: number | null = null
   private paused = false
   private pausePromise: Promise<void> = Promise.resolve()
   private resolvePausePromise: (() => void) | null = null
-  private lastRefreshStartedAt: number | null = null
+  private lastcontinueStartedAt: number | null = null
 
   public constructor(
     private readonly getRepositories: () => ReadonlyArray<Repository>,
-    private readonly refreshRepositoryIndicators: (
+    private readonly continueRepositoryIndicators: (
       repository: Repository
     ) => Promise<void>
   ) {}
@@ -36,42 +36,42 @@ export class RepositoryIndicatorUpdater {
       log.debug('[RepositoryIndicatorUpdater] Starting')
 
       this.running = true
-      this.scheduleRefresh()
+      this.schedulecontinue()
     }
   }
 
-  private scheduleRefresh() {
-    if (this.running && this.refreshTimeoutId === null) {
-      const timeSinceLastRefresh =
-        this.lastRefreshStartedAt === null
+  private schedulecontinue() {
+    if (this.running && this.continueTimeoutId === null) {
+      const timeSinceLastcontinue =
+        this.lastcontinueStartedAt === null
           ? Infinity
-          : Date.now() - this.lastRefreshStartedAt
+          : Date.now() - this.lastcontinueStartedAt
 
-      const timeout = Math.max(RefreshInterval - timeSinceLastRefresh, 0) + skew
-      const lastRefreshText = isFinite(timeSinceLastRefresh)
-        ? `${(timeSinceLastRefresh / 1000).toFixed(3)}s ago`
+      const timeout = Math.max(continueInterval - timeSinceLastcontinue, 0) + skew
+      const lastcontinueText = isFinite(timeSinceLastcontinue)
+        ? `${(timeSinceLastcontinue / 1000).toFixed(3)}s ago`
         : 'never'
       const timeoutText = `${(timeout / 1000).toFixed(3)}s`
 
       log.debug(
-        `[RepositoryIndicatorUpdater] Last refresh: ${lastRefreshText}, scheduling in ${timeoutText}`
+        `[RepositoryIndicatorUpdater] Last continue: ${lastcontinueText}, scheduling in ${timeoutText}`
       )
 
-      this.refreshTimeoutId = window.setTimeout(
-        () => this.refreshAllRepositories(),
+      this.continueTimeoutId = window.setTimeout(
+        () => this.continueAllRepositories(),
         timeout
       )
     }
   }
 
-  private async refreshAllRepositories() {
+  private async continueAllRepositories() {
     // We're only ever called by the setTimeout so it's safe for us to clear
     // this without calling clearTimeout
-    this.refreshTimeoutId = null
-    log.debug('[RepositoryIndicatorUpdater] Running refreshAllRepositories')
+    this.continueTimeoutId = null
+    log.debug('[RepositoryIndicatorUpdater] Running continueAllRepositories')
     if (this.paused) {
       log.debug(
-        '[RepositoryIndicatorUpdater] Paused before starting refreshAllRepositories'
+        '[RepositoryIndicatorUpdater] Paused before starting continueAllRepositories'
       )
       await this.pausePromise
 
@@ -80,7 +80,7 @@ export class RepositoryIndicatorUpdater {
       }
     }
 
-    this.lastRefreshStartedAt = Date.now()
+    this.lastcontinueStartedAt = Date.now()
 
     let repository
     const done = new Set<number>()
@@ -91,7 +91,7 @@ export class RepositoryIndicatorUpdater {
     let pausedTime = 0
 
     while (this.running && (repository = getNextRepository()) !== undefined) {
-      await this.refreshRepositoryIndicators(repository)
+      await this.continueRepositoryIndicators(repository)
 
       if (this.paused) {
         log.debug(
@@ -116,17 +116,17 @@ export class RepositoryIndicatorUpdater {
       const totalTimeSeconds = (totalTime / 1000).toFixed(1)
 
       log.info(
-        `[RepositoryIndicatorUpdater]: Refreshing sidebar indicators for ${done.size} repositories took ${activeTimeSeconds}s of which ${pausedTimeSeconds}s paused, total ${totalTimeSeconds}s`
+        `[RepositoryIndicatorUpdater]: continueing sidebar indicators for ${done.size} repositories took ${activeTimeSeconds}s of which ${pausedTimeSeconds}s paused, total ${totalTimeSeconds}s`
       )
     }
 
-    this.scheduleRefresh()
+    this.schedulecontinue()
   }
 
-  private clearRefreshTimeout() {
-    if (this.refreshTimeoutId !== null) {
+  private clearcontinueTimeout() {
+    if (this.continueTimeoutId !== null) {
       window.clearTimeout()
-      this.refreshTimeoutId = null
+      this.continueTimeoutId = null
     }
   }
 
@@ -134,7 +134,7 @@ export class RepositoryIndicatorUpdater {
     if (this.running) {
       log.debug('[RepositoryIndicatorUpdater] Stopping')
       this.running = false
-      this.clearRefreshTimeout()
+      this.clearcontinueTimeout()
     }
   }
 
